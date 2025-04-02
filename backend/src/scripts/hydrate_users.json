@@ -1,0 +1,35 @@
+[      
+  {
+      "userName": "stownsend",
+      "apiKey": "AunMD5Uvk8VOu&sBm1doHP*KEH%aJa@k%6%NS^9Te92W2FXCLqXqzVAPX*rFn5r@^&dB!Q4XM$!pTNTrJHEXa5JVwnxlj!m3",
+      "pinNumber": "1234",
+      "location": {
+        "countryCode": "US",
+        "countryName": "United States",
+        "timeZone": "America/Los_Angeles",
+        "gmtOffset": "-8"
+      }
+  },
+  {
+    "userName": "ggino",
+    "apiKey": "U55v6fB!wz2IWtIkz4dvuwuXvClTTt!zBBy93Y%xB%&uUP32sXWGM6o8FQwJhNXGgIGIv*e^W@1cVauB&jb7$i4l#7xG4iik",
+    "pinNumber": "1234",
+    "location": {
+      "countryCode": "US",
+      "countryName": "United States",
+      "timeZone": "America/Chicago",
+      "gmtOffset": "-6"
+    }
+  },
+  {
+        "userName": "psargent",
+        "apiKey": "znVjPMZ#C79ii*%58x@fzlzj6F3O9NeXiznjM9SSN6aoQS$92m5JRTe&NqqtE6bShVMTAMx4Hu9u8BKT@hrz#XFLUDHGqeTY",
+        "pinNumber": "1234",
+        "location": {
+        "countryCode": "AU",
+        "countryName": "Australia",
+        "timeZone": "Australia/Perth",
+        "gmtOffset": "+8"
+        }
+    }
+]

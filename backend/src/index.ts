@@ -16,7 +16,7 @@ const server = http.createServer(app);
 
 // Middleware
 app.use(cors({
-  origin: SERVER_CONFIG.FRONTEND_URL,
+  origin: [SERVER_CONFIG.FRONTEND_URL, 'http://localhost:3001'],
   credentials: true
 }));
 app.use(express.json());

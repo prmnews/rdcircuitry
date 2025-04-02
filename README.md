@@ -13,7 +13,8 @@ This is a monorepo project with the following structure:
 │   ├── dist/          # Compiled output
 │   └── ...
 │
-├── frontend/          # Next.js + React frontend (to be added)
+├── frontend/          # Next.js + React frontend
+│   ├── src/           # Source code
 │   └── ...
 │
 └── docs/              # Project documentation
@@ -25,31 +26,31 @@ The backend is an Express.js application written in TypeScript, providing API en
 
 See [backend/README.md](./backend/README.md) for more details.
 
-## Frontend (Coming Soon)
+## Frontend
 
-The frontend will be built using Next.js, React, TypeScript, and Tailwind CSS.
+The frontend is built using Next.js, React, TypeScript, and Tailwind CSS.
+
+See [frontend/README.md](./frontend/README.md) for more details.
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v16+)
-- pnpm package manager
+- Node.js (v18+)
+- pnpm package manager (v10+)
 
 ### Quick Start
 
 ```bash
-# Install dependencies for backend
-cd backend
+# Install dependencies for both backend and frontend
 pnpm install
 
-# Start backend development server
+# Start both backend and frontend in development mode
 pnpm dev
 
-# (Once frontend is added)
-# cd frontend
-# pnpm install
-# pnpm dev
+# Or start them individually
+pnpm dev:backend
+pnpm dev:frontend
 ```
 
 ## Environment Setup
@@ -60,6 +61,6 @@ Both backend and frontend components require environment variables for proper co
 
 See [backend/README.md](./backend/README.md) for backend environment setup.
 
-### Frontend (Coming Soon)
+### Frontend
 
-Frontend environment setup will be provided when implemented. 
+See [frontend/README.md](./frontend/README.md) for frontend environment setup. 

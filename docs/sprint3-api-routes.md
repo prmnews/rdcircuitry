@@ -877,7 +877,7 @@ Update `backend/src/index.ts` to include the routes:
 
 // Import routes
 import authRoutes from './routes/auth';
-import timerRoutes from './routes/timer';
+import timerRoutes from './routes/timer'; // TODO: Rename to messageTimer in future update
 import messageRoutes from './routes/message';
 import { protect } from './middleware/auth';
 import { Request, Response } from 'express';

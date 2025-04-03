@@ -1,3 +1,9 @@
+/**
+ * @deprecated This model is deprecated and should be replaced with message-timer.ts.
+ * The TimerState enum has been moved to ../types/index.ts
+ * This file will be removed in a future update.
+ */
+
 import mongoose, { Document, Schema } from 'mongoose';
 
 // Timer states

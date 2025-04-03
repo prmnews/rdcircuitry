@@ -1,4 +1,13 @@
-import { TimerState } from '../models/timer';
+// Replace the import with local enum definition
+// import { TimerState } from '../models/timer';
+
+// Timer states enum (replacing dependency on deprecated timer.ts)
+export enum TimerState {
+  IDLE = 'idle',
+  RUNNING = 'running',
+  PAUSED = 'paused',
+  EXPIRED = 'expired'
+}
 
 // API Response type
 export interface ApiResponse<T = any> {

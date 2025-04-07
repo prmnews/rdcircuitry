@@ -4,6 +4,7 @@ import { Server } from 'socket.io';
 import cors from 'cors';
 import { connectToDatabase } from './lib/database';
 import authRoutes from './routes/auth.routes';
+import userRoutes from './routes/user.routes';
 import { SocketManager } from './websocket/socket-manager';
 import { SERVER_CONFIG, validateConfig } from './config';
 
@@ -23,6 +24,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 
 // Basic health check route
 app.get('/api/health', (_req: Request, res: Response) => {

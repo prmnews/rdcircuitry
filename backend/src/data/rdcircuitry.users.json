@@ -1,27 +1,5 @@
 [{
   "_id": {
-    "$oid": "67eec513e1f3abf25bebba68"
-  },
-  "userName": "stownsend",
-  "pinNumber": "$2b$10$pNNi18/WTYzKZPFcf4TCX.aoulNOfictud7.nMCGPtBT8s3aEhj..",
-  "apiKey": "cf0d9baaca723c5f57b44ee3c334a46ec3c06a5c32d8b6ebd46476906207980550459a948d276d053aad84eac3c1b6abf75058a3f1d5bbf3ab0d0b9627057b756105d6832fde61b5aea0955697f041f06e622ebb05aef0167ca5bbcb668de860e58fe0bb94ec1f892e01b891f93ed20c7e458a801524eb0a30f99fe21d6c3bacae42fcc3ac13d2ffc6eff00c5202ba28639360ad72abb5376bbbf9bf5977d3c6a06d297958fc",
-  "location": {
-    "countryCode": "US",
-    "countryName": "United States",
-    "timeZone": "America/Los_Angeles",
-    "gmtOffset": "-08:00"
-  },
-  "role": "admin",
-  "createdAt": {
-    "$date": "2025-04-03T17:27:47.993Z"
-  },
-  "updatedAt": {
-    "$date": "2025-04-03T17:27:47.993Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
     "$oid": "67eec513e1f3abf25bebba69"
   },
   "userName": "psargent",
@@ -63,4 +41,29 @@
     "$date": "2025-04-03T17:27:47.994Z"
   },
   "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67eec513e1f3abf25bebba68"
+  },
+  "userName": "stownsend",
+  "pinNumber": "$2b$10$pNNi18/WTYzKZPFcf4TCX.aoulNOfictud7.nMCGPtBT8s3aEhj..",
+  "apiKey": "cf0d9baaca723c5f57b44ee3c334a46ec3c06a5c32d8b6ebd46476906207980550459a948d276d053aad84eac3c1b6abf75058a3f1d5bbf3ab0d0b9627057b756105d6832fde61b5aea0955697f041f06e622ebb05aef0167ca5bbcb668de860e58fe0bb94ec1f892e01b891f93ed20c7e458a801524eb0a30f99fe21d6c3bacae42fcc3ac13d2ffc6eff00c5202ba28639360ad72abb5376bbbf9bf5977d3c6a06d297958fc",
+  "location": {
+    "countryCode": "US",
+    "countryName": "United States",
+    "timeZone": "America/Los_Angeles",
+    "gmtOffset": "-08:00"
+  },
+  "role": "admin",
+  "createdAt": {
+    "$date": "2025-04-03T17:27:47.993Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-07T14:33:08.892Z"
+  },
+  "__v": 0,
+  "lastLogin": {
+    "$date": "2025-04-07T14:33:08.892Z"
+  }
 }]

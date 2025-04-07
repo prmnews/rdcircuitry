@@ -1,0 +1,38 @@
+[
+  {
+    "userName": "stownsend",
+    "pinNumber": "1234",
+    "apiKey": "cf0d9baaca723c5f57b44ee3c334a46ec3c06a5c32d8b6ebd46476906207980550459a948d276d053aad84eac3c1b6abf75058a3f1d5bbf3ab0d0b9627057b756105d6832fde61b5aea0955697f041f06e622ebb05aef0167ca5bbcb668de860e58fe0bb94ec1f892e01b891f93ed20c7e458a801524eb0a30f99fe21d6c3bacae42fcc3ac13d2ffc6eff00c5202ba28639360ad72abb5376bbbf9bf5977d3c6a06d297958fc",
+    "role": "admin",
+    "location": {
+      "countryCode": "US",
+      "countryName": "United States",
+      "timeZone": "America/Los_Angeles",
+      "gmtOffset": "-08:00"
+    }
+  },
+  {
+    "userName": "psargent",
+    "pinNumber": "1234",
+    "apiKey": "2154619f1e60876fbaa4b7eb92efe32c0dfb204ba9a9b348937ac860a3ff08ef0e080c18365f268d92638e15f1d833370b47936c9a21dbba558f317e83e0a9b6bc58255eb0ed5d771aeb79cfa27fc007be1b552d119a9618e1606f2135eeef5ad4e7c15e6eaf1c343a36ba3e4b947682e930691bccaf16a7bd28a8f691997a8cb4bb033d130d8ce1f4e34a376159eb3f3164703079cd832cfd8884bf83ecbc220a21730e52c5",
+    "role": "user",
+    "location": {
+      "countryCode": "AU",
+      "countryName": "Australia", 
+      "timeZone": "Australia/Perth",
+      "gmtOffset": "+08:00"
+    }
+  },
+  {
+    "userName": "testuser",
+    "pinNumber": "1234",
+    "apiKey": "047e455129164aa26c237b163d7cd4de91c4cf0471542fe93722fa52b8ad96e9fd60461c4fef63972be3153d0e9a11beb0e43318bb6a6046331f05bc36170ccc7b69c9def78cd30c176a7c3ff357c587cf8f3d6ab3f1c5a8aad05f90e7dea9950d4a0a27025ab4b93063e523c9c1a1018c720cbe4d44341d141c012db06b53d503d6097b",
+    "role": "user",
+    "location": {
+      "countryCode": "US",
+      "countryName": "United States",
+      "timeZone": "America/Chicago",
+      "gmtOffset": "-06:00"
+    }
+  }
+]

@@ -1,0 +1,129 @@
+[{
+  "_id": {
+    "$oid": "67ca0192ca26c5d670e4679d"
+  },
+  "apiKey": "znVjPMZ#C79ii*%58x@fzlzj6F3O9NeXiznjM9SSN6aoQS$92m5JRTe&NqqtE6bShVMTAMx4Hu9u8BKT@hrz#XFLUDHGqeTY",
+  "userName": "psargent",
+  "apiStart": {
+    "$date": "2025-03-06T20:12:02.806Z"
+  },
+  "apiExpireDateTime": {
+    "$date": "2026-03-06T20:12:02.806Z"
+  },
+  "isRevoked": false,
+  "usageCount": 0,
+  "description": "Initial API key for user psargent",
+  "createdBy": "SYSTEM",
+  "modificationHistory": [
+    {
+      "timestamp": {
+        "$date": "2025-03-06T20:12:02.806Z"
+      },
+      "action": "KEY_CREATION",
+      "performedBy": "SYSTEM",
+      "details": "Initial key creation during hydration",
+      "_id": {
+        "$oid": "67ca0192ca26c5d670e4679e"
+      }
+    }
+  ],
+  "keyType": "read-only",
+  "allowedIPs": [],
+  "allowedOrigins": [],
+  "status": "active",
+  "createdAt": {
+    "$date": "2025-03-06T20:12:02.819Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-06T20:12:02.819Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ca0192ca26c5d670e467a4"
+  },
+  "apiKey": "U55v6fB!wz2IWtIkz4dvuwuXvClTTt!zBBy93Y%xB%&uUP32sXWGM6o8FQwJhNXGgIGIv*e^W@1cVauB&jb7$i4l#7xG4iik",
+  "userName": "ggino",
+  "apiStart": {
+    "$date": "2025-03-06T20:12:02.975Z"
+  },
+  "apiExpireDateTime": {
+    "$date": "2026-03-06T20:12:02.975Z"
+  },
+  "isRevoked": false,
+  "usageCount": 2,
+  "description": "Initial API key for user ggino",
+  "createdBy": "SYSTEM",
+  "modificationHistory": [
+    {
+      "timestamp": {
+        "$date": "2025-03-06T20:12:02.975Z"
+      },
+      "action": "KEY_CREATION",
+      "performedBy": "SYSTEM",
+      "details": "Initial key creation during hydration",
+      "_id": {
+        "$oid": "67ca0192ca26c5d670e467a5"
+      }
+    }
+  ],
+  "keyType": "read-only",
+  "allowedIPs": [],
+  "allowedOrigins": [],
+  "status": "active",
+  "createdAt": {
+    "$date": "2025-03-06T20:12:03.009Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-24T16:35:09.611Z"
+  },
+  "__v": 0,
+  "lastUsed": {
+    "$date": "2025-03-24T16:35:09.607Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67ca0192ca26c5d670e46790"
+  },
+  "apiKey": "AunMD5Uvk8VOu&sBm1doHP*KEH%aJa@k%6%NS^9Te92W2FXCLqXqzVAPX*rFn5r@^&dB!Q4XM$!pTNTrJHEXa5JVwnxlj!m3",
+  "userName": "stownsend",
+  "apiStart": {
+    "$date": "2025-03-06T20:12:02.588Z"
+  },
+  "apiExpireDateTime": {
+    "$date": "2026-03-06T20:12:02.588Z"
+  },
+  "isRevoked": false,
+  "usageCount": 43,
+  "description": "Initial API key for user stownsend",
+  "createdBy": "SYSTEM",
+  "modificationHistory": [
+    {
+      "timestamp": {
+        "$date": "2025-03-06T20:12:02.588Z"
+      },
+      "action": "KEY_CREATION",
+      "performedBy": "SYSTEM",
+      "details": "Initial key creation during hydration",
+      "_id": {
+        "$oid": "67ca0192ca26c5d670e46791"
+      }
+    }
+  ],
+  "keyType": "read-only",
+  "allowedIPs": [],
+  "allowedOrigins": [],
+  "status": "active",
+  "createdAt": {
+    "$date": "2025-03-06T20:12:02.610Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-02T17:34:18.479Z"
+  },
+  "__v": 0,
+  "lastUsed": {
+    "$date": "2025-04-02T17:34:18.464Z"
+  }
+}]

@@ -1,7 +1,9 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
+import { ApiKey } from '../models';
 import { IUser, IUserLocation, UserRole } from '../types/models';
 import { SECURITY_CONFIG } from '../config';
+import bcrypt from 'bcryptjs';
 
 interface RegisterInput {
   userName: string;
@@ -13,6 +15,10 @@ interface RegisterInput {
 interface LoginInput {
   userName: string;
   pinNumber: string;
+}
+
+interface ApiKeyAuthInput {
+  apiKey: string;
 }
 
 interface AuthResult {
@@ -111,6 +117,79 @@ export class AuthService {
     } catch (error) {
       console.error('❌ Login error:', error);
       return { success: false, message: 'Login failed' };
+    }
+  }
+
+  /**
+   * Authenticate with API key
+   */
+  static async authenticateWithApiKey(input: ApiKeyAuthInput): Promise<AuthResult> {
+    try {
+      console.log(`🔑 Processing API Key authentication`);
+      
+      // Find all active API keys
+      const apiKeys = await ApiKey.find({ 
+        status: 'active',
+        isRevoked: false
+      });
+      
+      if (!apiKeys || apiKeys.length === 0) {
+        console.log(`❌ API Key authentication error: No active API keys found`);
+        return { success: false, message: 'Authentication failed' };
+      }
+      
+      // Check each API key
+      let matchedKey = null;
+      for (const key of apiKeys) {
+        // Check if key is expired
+        if (key.isExpired()) {
+          console.log(`⌛ Skipping expired API key for user: ${key.userName}`);
+          continue;
+        }
+        
+        // Compare the raw API key with the hashed one
+        const isMatch = await bcrypt.compare(input.apiKey, key.apiKey);
+        if (isMatch) {
+          matchedKey = key;
+          break;
+        }
+      }
+      
+      if (!matchedKey) {
+        console.log(`❌ API Key authentication error: Invalid API key`);
+        return { success: false, message: 'Invalid API key' };
+      }
+      
+      // Update key usage stats
+      matchedKey.lastUsed = new Date();
+      matchedKey.usageCount += 1;
+      await matchedKey.save();
+      
+      // Get the user associated with this API key
+      const user = await User.findOne({ userName: matchedKey.userName });
+      if (!user) {
+        console.log(`❌ API Key authentication error: User not found for API key`);
+        return { success: false, message: 'User not found for API key' };
+      }
+      
+      // Generate JWT token
+      const token = this.generateToken(user);
+      
+      console.log(`✅ API Key authentication successful for user: ${user.userName}`);
+      return {
+        success: true,
+        message: 'Authentication successful',
+        token,
+        user: {
+          _id: user._id,
+          userName: user.userName,
+          location: user.location,
+          role: user.role,
+        }
+      };
+    } catch (error) {
+      console.error('❌ API Key authentication error:', error);
+      return { success: false, message: 'Authentication failed' };
     }
   }
 

@@ -8,7 +8,15 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "lint": "eslint src/**/*.ts",
-    "format": "prettier --write src/**/*.ts"
+    "format": "prettier --write src/**/*.ts",
+    "hydrate": "npx ts-node src/scripts/hydrate-all.ts",
+    "hydrate:users": "npx ts-node src/scripts/hydrate-users.ts",
+    "hydrate:countries": "npx ts-node src/scripts/hydrate-countries.ts",
+    "hydrate:apikeys": "npx ts-node src/scripts/hydrate-apiKeys.ts",
+    "hydrate:state": "npx ts-node src/scripts/hydrate-state.ts",
+    "hydrate:messagetimer": "npx ts-node src/scripts/hydrate-messageTimer.ts",
+    "hydrate:all": "npx ts-node src/scripts/hydrate-all.ts",
+    "update:state": "npx ts-node src/scripts/update-state.ts"
   },
   "keywords": [],
   "author": "",

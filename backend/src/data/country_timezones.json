@@ -1,0 +1,1897 @@
+[
+    {
+      "countryCode": "AF",
+      "countryName": "Afghanistan",
+      "metadata": [
+        { "timeZone": "Asia/Kabul", "gmtOffset": "UTC +04:30" }
+      ]
+    },
+    {
+      "countryCode": "AL",
+      "countryName": "Albania",
+      "metadata": [
+        { "timeZone": "Europe/Tirane", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "DZ",
+      "countryName": "Algeria",
+      "metadata": [
+        { "timeZone": "Africa/Algiers", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "AS",
+      "countryName": "American Samoa",
+      "metadata": [
+        { "timeZone": "Pacific/Pago_Pago", "gmtOffset": "UTC -11:00" }
+      ]
+    },
+    {
+      "countryCode": "AD",
+      "countryName": "Andorra",
+      "metadata": [
+        { "timeZone": "Europe/Andorra", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "AO",
+      "countryName": "Angola",
+      "metadata": [
+        { "timeZone": "Africa/Luanda", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "AI",
+      "countryName": "Anguilla",
+      "metadata": [
+        { "timeZone": "America/Anguilla", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "AQ",
+      "countryName": "Antarctica",
+      "metadata": [
+        { "timeZone": "Antarctica/Casey", "gmtOffset": "UTC +08:00" },
+        { "timeZone": "Antarctica/Davis", "gmtOffset": "UTC +07:00" },
+        { "timeZone": "Antarctica/DumontDUrville", "gmtOffset": "UTC +10:00" },
+        { "timeZone": "Antarctica/Mawson", "gmtOffset": "UTC +05:00" },
+        { "timeZone": "Antarctica/McMurdo", "gmtOffset": "UTC +13:00" },
+        { "timeZone": "Antarctica/Palmer", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "Antarctica/Rothera", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "Antarctica/Syowa", "gmtOffset": "UTC +03:00" },
+        { "timeZone": "Antarctica/Troll", "gmtOffset": "UTC" },
+        { "timeZone": "Antarctica/Vostok", "gmtOffset": "UTC +05:00" }
+      ]
+    },
+    {
+      "countryCode": "AG",
+      "countryName": "Antigua and Barbuda",
+      "metadata": [
+        { "timeZone": "America/Antigua", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "AR",
+      "countryName": "Argentina",
+      "metadata": [
+        { "timeZone": "America/Argentina/Buenos_Aires", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Argentina/Catamarca", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Argentina/Cordoba", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Argentina/Jujuy", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Argentina/La_Rioja", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Argentina/Mendoza", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Argentina/Rio_Gallegos", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Argentina/Salta", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Argentina/San_Juan", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Argentina/San_Luis", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Argentina/Tucuman", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Argentina/Ushuaia", "gmtOffset": "UTC -03:00" }
+      ]
+    },
+    {
+      "countryCode": "AM",
+      "countryName": "Armenia",
+      "metadata": [
+        { "timeZone": "Asia/Yerevan", "gmtOffset": "UTC +04:00" }
+      ]
+    },
+    {
+      "countryCode": "AW",
+      "countryName": "Aruba",
+      "metadata": [
+        { "timeZone": "America/Aruba", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "AU",
+      "countryName": "Australia",
+      "metadata": [
+        { "timeZone": "Antarctica/Macquarie", "gmtOffset": "UTC +11:00" },
+        { "timeZone": "Australia/Adelaide", "gmtOffset": "UTC +10:30" },
+        { "timeZone": "Australia/Brisbane", "gmtOffset": "UTC +10:00" },
+        { "timeZone": "Australia/Broken_Hill", "gmtOffset": "UTC +10:30" },
+        { "timeZone": "Australia/Darwin", "gmtOffset": "UTC +09:30" },
+        { "timeZone": "Australia/Eucla", "gmtOffset": "UTC +08:45" },
+        { "timeZone": "Australia/Hobart", "gmtOffset": "UTC +11:00" },
+        { "timeZone": "Australia/Lindeman", "gmtOffset": "UTC +10:00" },
+        { "timeZone": "Australia/Lord_Howe", "gmtOffset": "UTC +11:00" },
+        { "timeZone": "Australia/Melbourne", "gmtOffset": "UTC +11:00" },
+        { "timeZone": "Australia/Perth", "gmtOffset": "UTC +08:00" },
+        { "timeZone": "Australia/Sydney", "gmtOffset": "UTC +11:00" }
+      ]
+    },
+    {
+      "countryCode": "AT",
+      "countryName": "Austria",
+      "metadata": [
+        { "timeZone": "Europe/Vienna", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "AZ",
+      "countryName": "Azerbaijan",
+      "metadata": [
+        { "timeZone": "Asia/Baku", "gmtOffset": "UTC +04:00" }
+      ]
+    },
+    {
+      "countryCode": "BS",
+      "countryName": "Bahamas",
+      "metadata": [
+        { "timeZone": "America/Nassau", "gmtOffset": "UTC -05:00" }
+      ]
+    },
+    {
+      "countryCode": "BH",
+      "countryName": "Bahrain",
+      "metadata": [
+        { "timeZone": "Asia/Bahrain", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "BD",
+      "countryName": "Bangladesh",
+      "metadata": [
+        { "timeZone": "Asia/Dhaka", "gmtOffset": "UTC +06:00" }
+      ]
+    },
+    {
+      "countryCode": "BB",
+      "countryName": "Barbados",
+      "metadata": [
+        { "timeZone": "America/Barbados", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "BY",
+      "countryName": "Belarus",
+      "metadata": [
+        { "timeZone": "Europe/Minsk", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "BE",
+      "countryName": "Belgium",
+      "metadata": [
+        { "timeZone": "Europe/Brussels", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "BZ",
+      "countryName": "Belize",
+      "metadata": [
+        { "timeZone": "America/Belize", "gmtOffset": "UTC -06:00" }
+      ]
+    },
+    {
+      "countryCode": "BJ",
+      "countryName": "Benin",
+      "metadata": [
+        { "timeZone": "Africa/Porto-Novo", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "BM",
+      "countryName": "Bermuda",
+      "metadata": [
+        { "timeZone": "Atlantic/Bermuda", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "BT",
+      "countryName": "Bhutan",
+      "metadata": [
+        { "timeZone": "Asia/Thimphu", "gmtOffset": "UTC +06:00" }
+      ]
+    },
+    {
+      "countryCode": "BO",
+      "countryName": "Bolivia, Plurinational State of",
+      "metadata": [
+        { "timeZone": "America/La_Paz", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "BQ",
+      "countryName": "Bonaire, Sint Eustatius and Saba",
+      "metadata": [
+        { "timeZone": "America/Kralendijk", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "BA",
+      "countryName": "Bosnia and Herzegovina",
+      "metadata": [
+        { "timeZone": "Europe/Sarajevo", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "BW",
+      "countryName": "Botswana",
+      "metadata": [
+        { "timeZone": "Africa/Gaborone", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "BR",
+      "countryName": "Brazil",
+      "metadata": [
+        { "timeZone": "America/Araguaina", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Bahia", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Belem", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Boa_Vista", "gmtOffset": "UTC -04:00" },
+        { "timeZone": "America/Campo_Grande", "gmtOffset": "UTC -04:00" },
+        { "timeZone": "America/Cuiaba", "gmtOffset": "UTC -04:00" },
+        { "timeZone": "America/Eirunepe", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "America/Fortaleza", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Maceio", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Manaus", "gmtOffset": "UTC -04:00" },
+        { "timeZone": "America/Noronha", "gmtOffset": "UTC -02:00" },
+        { "timeZone": "America/Porto_Velho", "gmtOffset": "UTC -04:00" },
+        { "timeZone": "America/Recife", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Rio_Branco", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "America/Santarem", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Sao_Paulo", "gmtOffset": "UTC -03:00" }
+      ]
+    },
+    {
+      "countryCode": "IO",
+      "countryName": "British Indian Ocean Territory",
+      "metadata": [
+        { "timeZone": "Indian/Chagos", "gmtOffset": "UTC +06:00" }
+      ]
+    },
+    {
+      "countryCode": "BN",
+      "countryName": "Brunei Darussalam",
+      "metadata": [
+        { "timeZone": "Asia/Brunei", "gmtOffset": "UTC +08:00" }
+      ]
+    },
+    {
+      "countryCode": "BG",
+      "countryName": "Bulgaria",
+      "metadata": [
+        { "timeZone": "Europe/Sofia", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "BF",
+      "countryName": "Burkina Faso",
+      "metadata": [
+        { "timeZone": "Africa/Ouagadougou", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "BI",
+      "countryName": "Burundi",
+      "metadata": [
+        { "timeZone": "Africa/Bujumbura", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "KH",
+      "countryName": "Cambodia",
+      "metadata": [
+        { "timeZone": "Asia/Phnom_Penh", "gmtOffset": "UTC +07:00" }
+      ]
+    },
+    {
+      "countryCode": "CM",
+      "countryName": "Cameroon",
+      "metadata": [
+        { "timeZone": "Africa/Douala", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "CA",
+      "countryName": "Canada",
+      "metadata": [
+        { "timeZone": "America/Atikokan", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "America/Blanc-Sablon", "gmtOffset": "UTC -04:00" },
+        { "timeZone": "America/Cambridge_Bay", "gmtOffset": "UTC -07:00" },
+        { "timeZone": "America/Creston", "gmtOffset": "UTC -07:00" },
+        { "timeZone": "America/Dawson", "gmtOffset": "UTC -07:00" },
+        { "timeZone": "America/Dawson_Creek", "gmtOffset": "UTC -07:00" },
+        { "timeZone": "America/Edmonton", "gmtOffset": "UTC -07:00" },
+        { "timeZone": "America/Fort_Nelson", "gmtOffset": "UTC -07:00" },
+        { "timeZone": "America/Glace_Bay", "gmtOffset": "UTC -04:00" },
+        { "timeZone": "America/Goose_Bay", "gmtOffset": "UTC -04:00" },
+        { "timeZone": "America/Halifax", "gmtOffset": "UTC -04:00" },
+        { "timeZone": "America/Inuvik", "gmtOffset": "UTC -07:00" },
+        { "timeZone": "America/Iqaluit", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "America/Moncton", "gmtOffset": "UTC -04:00" },
+        { "timeZone": "America/Rankin_Inlet", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/Regina", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/Resolute", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/St_Johns", "gmtOffset": "UTC -03:30" },
+        { "timeZone": "America/Swift_Current", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/Toronto", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "America/Vancouver", "gmtOffset": "UTC -08:00" },
+        { "timeZone": "America/Whitehorse", "gmtOffset": "UTC -07:00" },
+        { "timeZone": "America/Winnipeg", "gmtOffset": "UTC -06:00" }
+      ]
+    },
+    {
+      "countryCode": "CV",
+      "countryName": "Cape Verde",
+      "metadata": [
+        { "timeZone": "Atlantic/Cape_Verde", "gmtOffset": "UTC -01:00" }
+      ]
+    },
+    {
+      "countryCode": "KY",
+      "countryName": "Cayman Islands",
+      "metadata": [
+        { "timeZone": "America/Cayman", "gmtOffset": "UTC -05:00" }
+      ]
+    },
+    {
+      "countryCode": "CF",
+      "countryName": "Central African Republic",
+      "metadata": [
+        { "timeZone": "Africa/Bangui", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "TD",
+      "countryName": "Chad",
+      "metadata": [
+        { "timeZone": "Africa/Ndjamena", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "CL",
+      "countryName": "Chile",
+      "metadata": [
+        { "timeZone": "America/Punta_Arenas", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "America/Santiago", "gmtOffset": "UTC -03:00" },
+        { "timeZone": "Pacific/Easter", "gmtOffset": "UTC -05:00" }
+      ]
+    },
+    {
+      "countryCode": "CN",
+      "countryName": "China",
+      "metadata": [
+        { "timeZone": "Asia/Shanghai", "gmtOffset": "UTC +08:00" },
+        { "timeZone": "Asia/Urumqi", "gmtOffset": "UTC +06:00" }
+      ]
+    },
+    {
+      "countryCode": "CX",
+      "countryName": "Christmas Island",
+      "metadata": [
+        { "timeZone": "Indian/Christmas", "gmtOffset": "UTC +07:00" }
+      ]
+    },
+    {
+      "countryCode": "CC",
+      "countryName": "Cocos (Keeling) Islands",
+      "metadata": [
+        { "timeZone": "Indian/Cocos", "gmtOffset": "UTC +06:30" }
+      ]
+    },
+    {
+      "countryCode": "CO",
+      "countryName": "Colombia",
+      "metadata": [
+        { "timeZone": "America/Bogota", "gmtOffset": "UTC -05:00" }
+      ]
+    },
+    {
+      "countryCode": "KM",
+      "countryName": "Comoros",
+      "metadata": [
+        { "timeZone": "Indian/Comoro", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "CG",
+      "countryName": "Congo",
+      "metadata": [
+        { "timeZone": "Africa/Brazzaville", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "CD",
+      "countryName": "Congo, the Democratic Republic of the",
+      "metadata": [
+        { "timeZone": "Africa/Kinshasa", "gmtOffset": "UTC +01:00" },
+        { "timeZone": "Africa/Lubumbashi", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "CK",
+      "countryName": "Cook Islands",
+      "metadata": [
+        { "timeZone": "Pacific/Rarotonga", "gmtOffset": "UTC -10:00" }
+      ]
+    },
+    {
+      "countryCode": "CR",
+      "countryName": "Costa Rica",
+      "metadata": [
+        { "timeZone": "America/Costa_Rica", "gmtOffset": "UTC -06:00" }
+      ]
+    },
+    {
+      "countryCode": "HR",
+      "countryName": "Croatia",
+      "metadata": [
+        { "timeZone": "Europe/Zagreb", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "CU",
+      "countryName": "Cuba",
+      "metadata": [
+        { "timeZone": "America/Havana", "gmtOffset": "UTC -05:00" }
+      ]
+    },
+    {
+      "countryCode": "CW",
+      "countryName": "Curaçao",
+      "metadata": [
+        { "timeZone": "America/Curacao", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "CY",
+      "countryName": "Cyprus",
+      "metadata": [
+        { "timeZone": "Asia/Famagusta", "gmtOffset": "UTC +02:00" },
+        { "timeZone": "Asia/Nicosia", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "CZ",
+      "countryName": "Czech Republic",
+      "metadata": [
+        { "timeZone": "Europe/Prague", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "CI",
+      "countryName": "Côte d'Ivoire",
+      "metadata": [
+        { "timeZone": "Africa/Abidjan", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "DK",
+      "countryName": "Denmark",
+      "metadata": [
+        { "timeZone": "Europe/Copenhagen", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "DJ",
+      "countryName": "Djibouti",
+      "metadata": [
+        { "timeZone": "Africa/Djibouti", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "DM",
+      "countryName": "Dominica",
+      "metadata": [
+        { "timeZone": "America/Dominica", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "DO",
+      "countryName": "Dominican Republic",
+      "metadata": [
+        { "timeZone": "America/Santo_Domingo", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "EC",
+      "countryName": "Ecuador",
+      "metadata": [
+        { "timeZone": "America/Guayaquil", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "Pacific/Galapagos", "gmtOffset": "UTC -06:00" }
+      ]
+    },
+    {
+      "countryCode": "EG",
+      "countryName": "Egypt",
+      "metadata": [
+        { "timeZone": "Africa/Cairo", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "SV",
+      "countryName": "El Salvador",
+      "metadata": [
+        { "timeZone": "America/El_Salvador", "gmtOffset": "UTC -06:00" }
+      ]
+    },
+    {
+      "countryCode": "GQ",
+      "countryName": "Equatorial Guinea",
+      "metadata": [
+        { "timeZone": "Africa/Malabo", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "ER",
+      "countryName": "Eritrea",
+      "metadata": [
+        { "timeZone": "Africa/Asmara", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "EE",
+      "countryName": "Estonia",
+      "metadata": [
+        { "timeZone": "Europe/Tallinn", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "ET",
+      "countryName": "Ethiopia",
+      "metadata": [
+        { "timeZone": "Africa/Addis_Ababa", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "FK",
+      "countryName": "Falkland Islands (Malvinas)",
+      "metadata": [
+        { "timeZone": "Atlantic/Stanley", "gmtOffset": "UTC -03:00" }
+      ]
+    },
+    {
+      "countryCode": "FO",
+      "countryName": "Faroe Islands",
+      "metadata": [
+        { "timeZone": "Atlantic/Faroe", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "FJ",
+      "countryName": "Fiji",
+      "metadata": [
+        { "timeZone": "Pacific/Fiji", "gmtOffset": "UTC +12:00" }
+      ]
+    },
+    {
+      "countryCode": "FI",
+      "countryName": "Finland",
+      "metadata": [
+        { "timeZone": "Europe/Helsinki", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "FR",
+      "countryName": "France",
+      "metadata": [
+        { "timeZone": "Europe/Paris", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "GF",
+      "countryName": "French Guiana",
+      "metadata": [
+        { "timeZone": "America/Cayenne", "gmtOffset": "UTC -03:00" }
+      ]
+    },
+    {
+      "countryCode": "PF",
+      "countryName": "French Polynesia",
+      "metadata": [
+        { "timeZone": "Pacific/Gambier", "gmtOffset": "UTC -09:00" },
+        { "timeZone": "Pacific/Marquesas", "gmtOffset": "UTC -09:30" },
+        { "timeZone": "Pacific/Tahiti", "gmtOffset": "UTC -10:00" }
+      ]
+    },
+    {
+      "countryCode": "TF",
+      "countryName": "French Southern Territories",
+      "metadata": [
+        { "timeZone": "Indian/Kerguelen", "gmtOffset": "UTC +05:00" }
+      ]
+    },
+    {
+      "countryCode": "GA",
+      "countryName": "Gabon",
+      "metadata": [
+        { "timeZone": "Africa/Libreville", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "GM",
+      "countryName": "Gambia",
+      "metadata": [
+        { "timeZone": "Africa/Banjul", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "GE",
+      "countryName": "Georgia",
+      "metadata": [
+        { "timeZone": "Asia/Tbilisi", "gmtOffset": "UTC +04:00" }
+      ]
+    },
+    {
+      "countryCode": "DE",
+      "countryName": "Germany",
+      "metadata": [
+        { "timeZone": "Europe/Berlin", "gmtOffset": "UTC +01:00" },
+        { "timeZone": "Europe/Busingen", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "GH",
+      "countryName": "Ghana",
+      "metadata": [
+        { "timeZone": "Africa/Accra", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "GI",
+      "countryName": "Gibraltar",
+      "metadata": [
+        { "timeZone": "Europe/Gibraltar", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "GR",
+      "countryName": "Greece",
+      "metadata": [
+        { "timeZone": "Europe/Athens", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "GL",
+      "countryName": "Greenland",
+      "metadata": [
+        { "timeZone": "America/Danmarkshavn", "gmtOffset": "UTC" },
+        { "timeZone": "America/Nuuk", "gmtOffset": "UTC -02:00" },
+        { "timeZone": "America/Scoresbysund", "gmtOffset": "UTC -02:00" },
+        { "timeZone": "America/Thule", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "GD",
+      "countryName": "Grenada",
+      "metadata": [
+        { "timeZone": "America/Grenada", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "GP",
+      "countryName": "Guadeloupe",
+      "metadata": [
+        { "timeZone": "America/Guadeloupe", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "GU",
+      "countryName": "Guam",
+      "metadata": [
+        { "timeZone": "Pacific/Guam", "gmtOffset": "UTC +10:00" }
+      ]
+    },
+    {
+      "countryCode": "GT",
+      "countryName": "Guatemala",
+      "metadata": [
+        { "timeZone": "America/Guatemala", "gmtOffset": "UTC -06:00" }
+      ]
+    },
+    {
+      "countryCode": "GG",
+      "countryName": "Guernsey",
+      "metadata": [
+        { "timeZone": "Europe/Guernsey", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "GN",
+      "countryName": "Guinea",
+      "metadata": [
+        { "timeZone": "Africa/Conakry", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "GW",
+      "countryName": "Guinea-Bissau",
+      "metadata": [
+        { "timeZone": "Africa/Bissau", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "GY",
+      "countryName": "Guyana",
+      "metadata": [
+        { "timeZone": "America/Guyana", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "HT",
+      "countryName": "Haiti",
+      "metadata": [
+        { "timeZone": "America/Port-au-Prince", "gmtOffset": "UTC -05:00" }
+      ]
+    },
+    {
+      "countryCode": "VA",
+      "countryName": "Holy See (Vatican City State)",
+      "metadata": [
+        { "timeZone": "Europe/Vatican", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "HN",
+      "countryName": "Honduras",
+      "metadata": [
+        { "timeZone": "America/Tegucigalpa", "gmtOffset": "UTC -06:00" }
+      ]
+    },
+    {
+      "countryCode": "HK",
+      "countryName": "Hong Kong",
+      "metadata": [
+        { "timeZone": "Asia/Hong_Kong", "gmtOffset": "UTC +08:00" }
+      ]
+    },
+    {
+      "countryCode": "HU",
+      "countryName": "Hungary",
+      "metadata": [
+        { "timeZone": "Europe/Budapest", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "IS",
+      "countryName": "Iceland",
+      "metadata": [
+        { "timeZone": "Atlantic/Reykjavik", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "IN",
+      "countryName": "India",
+      "metadata": [
+        { "timeZone": "Asia/Kolkata", "gmtOffset": "UTC +05:30" }
+      ]
+    },
+    {
+      "countryCode": "ID",
+      "countryName": "Indonesia",
+      "metadata": [
+        { "timeZone": "Asia/Jakarta", "gmtOffset": "UTC +07:00" },
+        { "timeZone": "Asia/Jayapura", "gmtOffset": "UTC +09:00" },
+        { "timeZone": "Asia/Makassar", "gmtOffset": "UTC +08:00" },
+        { "timeZone": "Asia/Pontianak", "gmtOffset": "UTC +07:00" }
+      ]
+    },
+    {
+      "countryCode": "IR",
+      "countryName": "Iran, Islamic Republic of",
+      "metadata": [
+        { "timeZone": "Asia/Tehran", "gmtOffset": "UTC +03:30" }
+      ]
+    },
+    {
+      "countryCode": "IQ",
+      "countryName": "Iraq",
+      "metadata": [
+        { "timeZone": "Asia/Baghdad", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "IE",
+      "countryName": "Ireland",
+      "metadata": [
+        { "timeZone": "Europe/Dublin", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "IM",
+      "countryName": "Isle of Man",
+      "metadata": [
+        { "timeZone": "Europe/Isle_of_Man", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "IL",
+      "countryName": "Israel",
+      "metadata": [
+        { "timeZone": "Asia/Jerusalem", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "IT",
+      "countryName": "Italy",
+      "metadata": [
+        { "timeZone": "Europe/Rome", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "JM",
+      "countryName": "Jamaica",
+      "metadata": [
+        { "timeZone": "America/Jamaica", "gmtOffset": "UTC -05:00" }
+      ]
+    },
+    {
+      "countryCode": "JP",
+      "countryName": "Japan",
+      "metadata": [
+        { "timeZone": "Asia/Tokyo", "gmtOffset": "UTC +09:00" }
+      ]
+    },
+    {
+      "countryCode": "JE",
+      "countryName": "Jersey",
+      "metadata": [
+        { "timeZone": "Europe/Jersey", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "JO",
+      "countryName": "Jordan",
+      "metadata": [
+        { "timeZone": "Asia/Amman", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "KZ",
+      "countryName": "Kazakhstan",
+      "metadata": [
+        { "timeZone": "Asia/Almaty", "gmtOffset": "UTC +05:00" },
+        { "timeZone": "Asia/Aqtau", "gmtOffset": "UTC +05:00" },
+        { "timeZone": "Asia/Aqtobe", "gmtOffset": "UTC +05:00" },
+        { "timeZone": "Asia/Atyrau", "gmtOffset": "UTC +05:00" },
+        { "timeZone": "Asia/Oral", "gmtOffset": "UTC +05:00" },
+        { "timeZone": "Asia/Qostanay", "gmtOffset": "UTC +05:00" },
+        { "timeZone": "Asia/Qyzylorda", "gmtOffset": "UTC +05:00" }
+      ]
+    },
+    {
+      "countryCode": "KE",
+      "countryName": "Kenya",
+      "metadata": [
+        { "timeZone": "Africa/Nairobi", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "KI",
+      "countryName": "Kiribati",
+      "metadata": [
+        { "timeZone": "Pacific/Kanton", "gmtOffset": "UTC +13:00" },
+        { "timeZone": "Pacific/Kiritimati", "gmtOffset": "UTC +14:00" },
+        { "timeZone": "Pacific/Tarawa", "gmtOffset": "UTC +12:00" }
+      ]
+    },
+    {
+      "countryCode": "KP",
+      "countryName": "Korea, Democratic People's Republic of",
+      "metadata": [
+        { "timeZone": "Asia/Pyongyang", "gmtOffset": "UTC +09:00" }
+      ]
+    },
+    {
+      "countryCode": "KR",
+      "countryName": "Korea, Republic of",
+      "metadata": [
+        { "timeZone": "Asia/Seoul", "gmtOffset": "UTC +09:00" }
+      ]
+    },
+    {
+      "countryCode": "KW",
+      "countryName": "Kuwait",
+      "metadata": [
+        { "timeZone": "Asia/Kuwait", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "KG",
+      "countryName": "Kyrgyzstan",
+      "metadata": [
+        { "timeZone": "Asia/Bishkek", "gmtOffset": "UTC +06:00" }
+      ]
+    },
+    {
+      "countryCode": "LA",
+      "countryName": "Lao People's Democratic Republic",
+      "metadata": [
+        { "timeZone": "Asia/Vientiane", "gmtOffset": "UTC +07:00" }
+      ]
+    },
+    {
+      "countryCode": "LV",
+      "countryName": "Latvia",
+      "metadata": [
+        { "timeZone": "Europe/Riga", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "LB",
+      "countryName": "Lebanon",
+      "metadata": [
+        { "timeZone": "Asia/Beirut", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "LS",
+      "countryName": "Lesotho",
+      "metadata": [
+        { "timeZone": "Africa/Maseru", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "LR",
+      "countryName": "Liberia",
+      "metadata": [
+        { "timeZone": "Africa/Monrovia", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "LY",
+      "countryName": "Libya",
+      "metadata": [
+        { "timeZone": "Africa/Tripoli", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "LI",
+      "countryName": "Liechtenstein",
+      "metadata": [
+        { "timeZone": "Europe/Vaduz", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "LT",
+      "countryName": "Lithuania",
+      "metadata": [
+        { "timeZone": "Europe/Vilnius", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "LU",
+      "countryName": "Luxembourg",
+      "metadata": [
+        { "timeZone": "Europe/Luxembourg", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "MO",
+      "countryName": "Macao",
+      "metadata": [
+        { "timeZone": "Asia/Macau", "gmtOffset": "UTC +08:00" }
+      ]
+    },
+    {
+      "countryCode": "MK",
+      "countryName": "Macedonia, the Former Yugoslav Republic of",
+      "metadata": [
+        { "timeZone": "Europe/Skopje", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "MG",
+      "countryName": "Madagascar",
+      "metadata": [
+        { "timeZone": "Indian/Antananarivo", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "MW",
+      "countryName": "Malawi",
+      "metadata": [
+        { "timeZone": "Africa/Blantyre", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "MY",
+      "countryName": "Malaysia",
+      "metadata": [
+        { "timeZone": "Asia/Kuala_Lumpur", "gmtOffset": "UTC +08:00" },
+        { "timeZone": "Asia/Kuching", "gmtOffset": "UTC +08:00" }
+      ]
+    },
+    {
+      "countryCode": "MV",
+      "countryName": "Maldives",
+      "metadata": [
+        { "timeZone": "Indian/Maldives", "gmtOffset": "UTC +05:00" }
+      ]
+    },
+    {
+      "countryCode": "ML",
+      "countryName": "Mali",
+      "metadata": [
+        { "timeZone": "Africa/Bamako", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "MT",
+      "countryName": "Malta",
+      "metadata": [
+        { "timeZone": "Europe/Malta", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "MH",
+      "countryName": "Marshall Islands",
+      "metadata": [
+        { "timeZone": "Pacific/Kwajalein", "gmtOffset": "UTC +12:00" },
+        { "timeZone": "Pacific/Majuro", "gmtOffset": "UTC +12:00" }
+      ]
+    },
+    {
+      "countryCode": "MQ",
+      "countryName": "Martinique",
+      "metadata": [
+        { "timeZone": "America/Martinique", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "MR",
+      "countryName": "Mauritania",
+      "metadata": [
+        { "timeZone": "Africa/Nouakchott", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "MU",
+      "countryName": "Mauritius",
+      "metadata": [
+        { "timeZone": "Indian/Mauritius", "gmtOffset": "UTC +04:00" }
+      ]
+    },
+    {
+      "countryCode": "YT",
+      "countryName": "Mayotte",
+      "metadata": [
+        { "timeZone": "Indian/Mayotte", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "MX",
+      "countryName": "Mexico",
+      "metadata": [
+        { "timeZone": "America/Bahia_Banderas", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/Cancun", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "America/Chihuahua", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/Ciudad_Juarez", "gmtOffset": "UTC -07:00" },
+        { "timeZone": "America/Hermosillo", "gmtOffset": "UTC -07:00" },
+        { "timeZone": "America/Matamoros", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/Mazatlan", "gmtOffset": "UTC -07:00" },
+        { "timeZone": "America/Merida", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/Mexico_City", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/Monterrey", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/Ojinaga", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/Tijuana", "gmtOffset": "UTC -08:00" }
+      ]
+    },
+    {
+      "countryCode": "FM",
+      "countryName": "Micronesia, Federated States of",
+      "metadata": [
+        { "timeZone": "Pacific/Chuuk", "gmtOffset": "UTC +10:00" },
+        { "timeZone": "Pacific/Kosrae", "gmtOffset": "UTC +11:00" },
+        { "timeZone": "Pacific/Pohnpei", "gmtOffset": "UTC +11:00" }
+      ]
+    },
+    {
+      "countryCode": "MD",
+      "countryName": "Moldova, Republic of",
+      "metadata": [
+        { "timeZone": "Europe/Chisinau", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "MC",
+      "countryName": "Monaco",
+      "metadata": [
+        { "timeZone": "Europe/Monaco", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "MN",
+      "countryName": "Mongolia",
+      "metadata": [
+        { "timeZone": "Asia/Hovd", "gmtOffset": "UTC +07:00" },
+        { "timeZone": "Asia/Ulaanbaatar", "gmtOffset": "UTC +08:00" }
+      ]
+    },
+    {
+      "countryCode": "ME",
+      "countryName": "Montenegro",
+      "metadata": [
+        { "timeZone": "Europe/Podgorica", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "MS",
+      "countryName": "Montserrat",
+      "metadata": [
+        { "timeZone": "America/Montserrat", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "MA",
+      "countryName": "Morocco",
+      "metadata": [
+        { "timeZone": "Africa/Casablanca", "gmtOffset": "UTC" },
+        { "timeZone": "Africa/El_Aaiun", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "MZ",
+      "countryName": "Mozambique",
+      "metadata": [
+        { "timeZone": "Africa/Maputo", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "MM",
+      "countryName": "Myanmar",
+      "metadata": [
+        { "timeZone": "Asia/Yangon", "gmtOffset": "UTC +06:30" }
+      ]
+    },
+    {
+      "countryCode": "NA",
+      "countryName": "Namibia",
+      "metadata": [
+        { "timeZone": "Africa/Windhoek", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "NR",
+      "countryName": "Nauru",
+      "metadata": [
+        { "timeZone": "Pacific/Nauru", "gmtOffset": "UTC +12:00" }
+      ]
+    },
+    {
+      "countryCode": "NP",
+      "countryName": "Nepal",
+      "metadata": [
+        { "timeZone": "Asia/Kathmandu", "gmtOffset": "UTC +05:45" }
+      ]
+    },
+    {
+      "countryCode": "NL",
+      "countryName": "Netherlands",
+      "metadata": [
+        { "timeZone": "Europe/Amsterdam", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "NC",
+      "countryName": "New Caledonia",
+      "metadata": [
+        { "timeZone": "Pacific/Noumea", "gmtOffset": "UTC +11:00" }
+      ]
+    },
+    {
+      "countryCode": "NZ",
+      "countryName": "New Zealand",
+      "metadata": [
+        { "timeZone": "Pacific/Auckland", "gmtOffset": "UTC +13:00" },
+        { "timeZone": "Pacific/Chatham", "gmtOffset": "UTC +13:45" }
+      ]
+    },
+    {
+      "countryCode": "NI",
+      "countryName": "Nicaragua",
+      "metadata": [
+        { "timeZone": "America/Managua", "gmtOffset": "UTC -06:00" }
+      ]
+    },
+    {
+      "countryCode": "NE",
+      "countryName": "Niger",
+      "metadata": [
+        { "timeZone": "Africa/Niamey", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "NG",
+      "countryName": "Nigeria",
+      "metadata": [
+        { "timeZone": "Africa/Lagos", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "NU",
+      "countryName": "Niue",
+      "metadata": [
+        { "timeZone": "Pacific/Niue", "gmtOffset": "UTC -11:00" }
+      ]
+    },
+    {
+      "countryCode": "NF",
+      "countryName": "Norfolk Island",
+      "metadata": [
+        { "timeZone": "Pacific/Norfolk", "gmtOffset": "UTC +12:00" }
+      ]
+    },
+    {
+      "countryCode": "MP",
+      "countryName": "Northern Mariana Islands",
+      "metadata": [
+        { "timeZone": "Pacific/Saipan", "gmtOffset": "UTC +10:00" }
+      ]
+    },
+    {
+      "countryCode": "NO",
+      "countryName": "Norway",
+      "metadata": [
+        { "timeZone": "Europe/Oslo", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "OM",
+      "countryName": "Oman",
+      "metadata": [
+        { "timeZone": "Asia/Muscat", "gmtOffset": "UTC +04:00" }
+      ]
+    },
+    {
+      "countryCode": "PK",
+      "countryName": "Pakistan",
+      "metadata": [
+        { "timeZone": "Asia/Karachi", "gmtOffset": "UTC +05:00" }
+      ]
+    },
+    {
+      "countryCode": "PW",
+      "countryName": "Palau",
+      "metadata": [
+        { "timeZone": "Pacific/Palau", "gmtOffset": "UTC +09:00" }
+      ]
+    },
+    {
+      "countryCode": "PS",
+      "countryName": "Palestine, State of",
+      "metadata": [
+        { "timeZone": "Asia/Gaza", "gmtOffset": "UTC +02:00" },
+        { "timeZone": "Asia/Hebron", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "PA",
+      "countryName": "Panama",
+      "metadata": [
+        { "timeZone": "America/Panama", "gmtOffset": "UTC -05:00" }
+      ]
+    },
+    {
+      "countryCode": "PG",
+      "countryName": "Papua New Guinea",
+      "metadata": [
+        { "timeZone": "Pacific/Bougainville", "gmtOffset": "UTC +11:00" },
+        { "timeZone": "Pacific/Port_Moresby", "gmtOffset": "UTC +10:00" }
+      ]
+    },
+    {
+      "countryCode": "PY",
+      "countryName": "Paraguay",
+      "metadata": [
+        { "timeZone": "America/Asuncion", "gmtOffset": "UTC -03:00" }
+      ]
+    },
+    {
+      "countryCode": "PE",
+      "countryName": "Peru",
+      "metadata": [
+        { "timeZone": "America/Lima", "gmtOffset": "UTC -05:00" }
+      ]
+    },
+    {
+      "countryCode": "PH",
+      "countryName": "Philippines",
+      "metadata": [
+        { "timeZone": "Asia/Manila", "gmtOffset": "UTC +08:00" }
+      ]
+    },
+    {
+      "countryCode": "PN",
+      "countryName": "Pitcairn",
+      "metadata": [
+        { "timeZone": "Pacific/Pitcairn", "gmtOffset": "UTC -08:00" }
+      ]
+    },
+    {
+      "countryCode": "PL",
+      "countryName": "Poland",
+      "metadata": [
+        { "timeZone": "Europe/Warsaw", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "PT",
+      "countryName": "Portugal",
+      "metadata": [
+        { "timeZone": "Atlantic/Azores", "gmtOffset": "UTC -01:00" },
+        { "timeZone": "Atlantic/Madeira", "gmtOffset": "UTC" },
+        { "timeZone": "Europe/Lisbon", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "PR",
+      "countryName": "Puerto Rico",
+      "metadata": [
+        { "timeZone": "America/Puerto_Rico", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "QA",
+      "countryName": "Qatar",
+      "metadata": [
+        { "timeZone": "Asia/Qatar", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "RO",
+      "countryName": "Romania",
+      "metadata": [
+        { "timeZone": "Europe/Bucharest", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "RU",
+      "countryName": "Russian Federation",
+      "metadata": [
+        { "timeZone": "Asia/Anadyr", "gmtOffset": "UTC +12:00" },
+        { "timeZone": "Asia/Barnaul", "gmtOffset": "UTC +07:00" },
+        { "timeZone": "Asia/Chita", "gmtOffset": "UTC +09:00" },
+        { "timeZone": "Asia/Irkutsk", "gmtOffset": "UTC +08:00" },
+        { "timeZone": "Asia/Kamchatka", "gmtOffset": "UTC +12:00" },
+        { "timeZone": "Asia/Khandyga", "gmtOffset": "UTC +09:00" },
+        { "timeZone": "Asia/Krasnoyarsk", "gmtOffset": "UTC +07:00" },
+        { "timeZone": "Asia/Magadan", "gmtOffset": "UTC +11:00" },
+        { "timeZone": "Asia/Novokuznetsk", "gmtOffset": "UTC +07:00" },
+        { "timeZone": "Asia/Novosibirsk", "gmtOffset": "UTC +07:00" },
+        { "timeZone": "Asia/Omsk", "gmtOffset": "UTC +06:00" },
+        { "timeZone": "Asia/Sakhalin", "gmtOffset": "UTC +11:00" },
+        { "timeZone": "Asia/Srednekolymsk", "gmtOffset": "UTC +11:00" },
+        { "timeZone": "Asia/Tomsk", "gmtOffset": "UTC +07:00" },
+        { "timeZone": "Asia/Ust-Nera", "gmtOffset": "UTC +10:00" },
+        { "timeZone": "Asia/Vladivostok", "gmtOffset": "UTC +10:00" },
+        { "timeZone": "Asia/Yakutsk", "gmtOffset": "UTC +09:00" },
+        { "timeZone": "Asia/Yekaterinburg", "gmtOffset": "UTC +05:00" },
+        { "timeZone": "Europe/Astrakhan", "gmtOffset": "UTC +04:00" },
+        { "timeZone": "Europe/Kaliningrad", "gmtOffset": "UTC +02:00" },
+        { "timeZone": "Europe/Kirov", "gmtOffset": "UTC +03:00" },
+        { "timeZone": "Europe/Moscow", "gmtOffset": "UTC +03:00" },
+        { "timeZone": "Europe/Samara", "gmtOffset": "UTC +04:00" },
+        { "timeZone": "Europe/Saratov", "gmtOffset": "UTC +04:00" },
+        { "timeZone": "Europe/Ulyanovsk", "gmtOffset": "UTC +04:00" },
+        { "timeZone": "Europe/Volgograd", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "RW",
+      "countryName": "Rwanda",
+      "metadata": [
+        { "timeZone": "Africa/Kigali", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "RE",
+      "countryName": "Réunion",
+      "metadata": [
+        { "timeZone": "Indian/Reunion", "gmtOffset": "UTC +04:00" }
+      ]
+    },
+    {
+      "countryCode": "BL",
+      "countryName": "Saint Barthélemy",
+      "metadata": [
+        { "timeZone": "America/St_Barthelemy", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "SH",
+      "countryName": "Saint Helena, Ascension and Tristan da Cunha",
+      "metadata": [
+        { "timeZone": "Atlantic/St_Helena", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "KN",
+      "countryName": "Saint Kitts and Nevis",
+      "metadata": [
+        { "timeZone": "America/St_Kitts", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "LC",
+      "countryName": "Saint Lucia",
+      "metadata": [
+        { "timeZone": "America/St_Lucia", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "MF",
+      "countryName": "Saint Martin (French part)",
+      "metadata": [
+        { "timeZone": "America/Marigot", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "PM",
+      "countryName": "Saint Pierre and Miquelon",
+      "metadata": [
+        { "timeZone": "America/Miquelon", "gmtOffset": "UTC -03:00" }
+      ]
+    },
+    {
+      "countryCode": "VC",
+      "countryName": "Saint Vincent and the Grenadines",
+      "metadata": [
+        { "timeZone": "America/St_Vincent", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "WS",
+      "countryName": "Samoa",
+      "metadata": [
+        { "timeZone": "Pacific/Apia", "gmtOffset": "UTC +13:00" }
+      ]
+    },
+    {
+      "countryCode": "SM",
+      "countryName": "San Marino",
+      "metadata": [
+        { "timeZone": "Europe/San_Marino", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "ST",
+      "countryName": "Sao Tome and Principe",
+      "metadata": [
+        { "timeZone": "Africa/Sao_Tome", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "SA",
+      "countryName": "Saudi Arabia",
+      "metadata": [
+        { "timeZone": "Asia/Riyadh", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "SN",
+      "countryName": "Senegal",
+      "metadata": [
+        { "timeZone": "Africa/Dakar", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "RS",
+      "countryName": "Serbia",
+      "metadata": [
+        { "timeZone": "Europe/Belgrade", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "SC",
+      "countryName": "Seychelles",
+      "metadata": [
+        { "timeZone": "Indian/Mahe", "gmtOffset": "UTC +04:00" }
+      ]
+    },
+    {
+      "countryCode": "SL",
+      "countryName": "Sierra Leone",
+      "metadata": [
+        { "timeZone": "Africa/Freetown", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "SG",
+      "countryName": "Singapore",
+      "metadata": [
+        { "timeZone": "Asia/Singapore", "gmtOffset": "UTC +08:00" }
+      ]
+    },
+    {
+      "countryCode": "SX",
+      "countryName": "Sint Maarten (Dutch part)",
+      "metadata": [
+        { "timeZone": "America/Lower_Princes", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "SK",
+      "countryName": "Slovakia",
+      "metadata": [
+        { "timeZone": "Europe/Bratislava", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "SI",
+      "countryName": "Slovenia",
+      "metadata": [
+        { "timeZone": "Europe/Ljubljana", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "SB",
+      "countryName": "Solomon Islands",
+      "metadata": [
+        { "timeZone": "Pacific/Guadalcanal", "gmtOffset": "UTC +11:00" }
+      ]
+    },
+    {
+      "countryCode": "SO",
+      "countryName": "Somalia",
+      "metadata": [
+        { "timeZone": "Africa/Mogadishu", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "ZA",
+      "countryName": "South Africa",
+      "metadata": [
+        { "timeZone": "Africa/Johannesburg", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "GS",
+      "countryName": "South Georgia and the South Sandwich Islands",
+      "metadata": [
+        { "timeZone": "Atlantic/South_Georgia", "gmtOffset": "UTC -02:00" }
+      ]
+    },
+    {
+      "countryCode": "SS",
+      "countryName": "South Sudan",
+      "metadata": [
+        { "timeZone": "Africa/Juba", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "ES",
+      "countryName": "Spain",
+      "metadata": [
+        { "timeZone": "Africa/Ceuta", "gmtOffset": "UTC +01:00" },
+        { "timeZone": "Atlantic/Canary", "gmtOffset": "UTC" },
+        { "timeZone": "Europe/Madrid", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "LK",
+      "countryName": "Sri Lanka",
+      "metadata": [
+        { "timeZone": "Asia/Colombo", "gmtOffset": "UTC +05:30" }
+      ]
+    },
+    {
+      "countryCode": "SD",
+      "countryName": "Sudan",
+      "metadata": [
+        { "timeZone": "Africa/Khartoum", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "SR",
+      "countryName": "Suriname",
+      "metadata": [
+        { "timeZone": "America/Paramaribo", "gmtOffset": "UTC -03:00" }
+      ]
+    },
+    {
+      "countryCode": "SJ",
+      "countryName": "Svalbard and Jan Mayen",
+      "metadata": [
+        { "timeZone": "Arctic/Longyearbyen", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "SZ",
+      "countryName": "Swaziland",
+      "metadata": [
+        { "timeZone": "Africa/Mbabane", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "SE",
+      "countryName": "Sweden",
+      "metadata": [
+        { "timeZone": "Europe/Stockholm", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "CH",
+      "countryName": "Switzerland",
+      "metadata": [
+        { "timeZone": "Europe/Zurich", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "SY",
+      "countryName": "Syrian Arab Republic",
+      "metadata": [
+        { "timeZone": "Asia/Damascus", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "TW",
+      "countryName": "Taiwan, Province of China",
+      "metadata": [
+        { "timeZone": "Asia/Taipei", "gmtOffset": "UTC +08:00" }
+      ]
+    },
+    {
+      "countryCode": "TJ",
+      "countryName": "Tajikistan",
+      "metadata": [
+        { "timeZone": "Asia/Dushanbe", "gmtOffset": "UTC +05:00" }
+      ]
+    },
+    {
+      "countryCode": "TZ",
+      "countryName": "Tanzania, United Republic of",
+      "metadata": [
+        { "timeZone": "Africa/Dar_es_Salaam", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "TH",
+      "countryName": "Thailand",
+      "metadata": [
+        { "timeZone": "Asia/Bangkok", "gmtOffset": "UTC +07:00" }
+      ]
+    },
+    {
+      "countryCode": "TL",
+      "countryName": "Timor-Leste",
+      "metadata": [
+        { "timeZone": "Asia/Dili", "gmtOffset": "UTC +09:00" }
+      ]
+    },
+    {
+      "countryCode": "TG",
+      "countryName": "Togo",
+      "metadata": [
+        { "timeZone": "Africa/Lome", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "TK",
+      "countryName": "Tokelau",
+      "metadata": [
+        { "timeZone": "Pacific/Fakaofo", "gmtOffset": "UTC +13:00" }
+      ]
+    },
+    {
+      "countryCode": "TO",
+      "countryName": "Tonga",
+      "metadata": [
+        { "timeZone": "Pacific/Tongatapu", "gmtOffset": "UTC +13:00" }
+      ]
+    },
+    {
+      "countryCode": "TT",
+      "countryName": "Trinidad and Tobago",
+      "metadata": [
+        { "timeZone": "America/Port_of_Spain", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "TN",
+      "countryName": "Tunisia",
+      "metadata": [
+        { "timeZone": "Africa/Tunis", "gmtOffset": "UTC +01:00" }
+      ]
+    },
+    {
+      "countryCode": "TR",
+      "countryName": "Turkey",
+      "metadata": [
+        { "timeZone": "Europe/Istanbul", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "TM",
+      "countryName": "Turkmenistan",
+      "metadata": [
+        { "timeZone": "Asia/Ashgabat", "gmtOffset": "UTC +05:00" }
+      ]
+    },
+    {
+      "countryCode": "TC",
+      "countryName": "Turks and Caicos Islands",
+      "metadata": [
+        { "timeZone": "America/Grand_Turk", "gmtOffset": "UTC -05:00" }
+      ]
+    },
+    {
+      "countryCode": "TV",
+      "countryName": "Tuvalu",
+      "metadata": [
+        { "timeZone": "Pacific/Funafuti", "gmtOffset": "UTC +12:00" }
+      ]
+    },
+    {
+      "countryCode": "UG",
+      "countryName": "Uganda",
+      "metadata": [
+        { "timeZone": "Africa/Kampala", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "UA",
+      "countryName": "Ukraine",
+      "metadata": [
+        { "timeZone": "Europe/Kyiv", "gmtOffset": "UTC +02:00" },
+        { "timeZone": "Europe/Simferopol", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "AE",
+      "countryName": "United Arab Emirates",
+      "metadata": [
+        { "timeZone": "Asia/Dubai", "gmtOffset": "UTC +04:00" }
+      ]
+    },
+    {
+      "countryCode": "GB",
+      "countryName": "United Kingdom",
+      "metadata": [
+        { "timeZone": "Europe/London", "gmtOffset": "UTC" }
+      ]
+    },
+    {
+      "countryCode": "US",
+      "countryName": "United States",
+      "metadata": [
+        { "timeZone": "America/Adak", "gmtOffset": "UTC -10:00" },
+        { "timeZone": "America/Anchorage", "gmtOffset": "UTC -09:00" },
+        { "timeZone": "America/Boise", "gmtOffset": "UTC -07:00" },
+        { "timeZone": "America/Chicago", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/Denver", "gmtOffset": "UTC -07:00" },
+        { "timeZone": "America/Detroit", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "America/Indiana/Indianapolis", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "America/Indiana/Knox", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/Indiana/Marengo", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "America/Indiana/Petersburg", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "America/Indiana/Tell_City", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/Indiana/Vevay", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "America/Indiana/Vincennes", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "America/Indiana/Winamac", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "America/Juneau", "gmtOffset": "UTC -09:00" },
+        { "timeZone": "America/Kentucky/Louisville", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "America/Kentucky/Monticello", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "America/Los_Angeles", "gmtOffset": "UTC -08:00" },
+        { "timeZone": "America/Menominee", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/Metlakatla", "gmtOffset": "UTC -09:00" },
+        { "timeZone": "America/New_York", "gmtOffset": "UTC -05:00" },
+        { "timeZone": "America/Nome", "gmtOffset": "UTC -09:00" },
+        { "timeZone": "America/North_Dakota/Beulah", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/North_Dakota/Center", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/North_Dakota/New_Salem", "gmtOffset": "UTC -06:00" },
+        { "timeZone": "America/Phoenix", "gmtOffset": "UTC -07:00" },
+        { "timeZone": "America/Sitka", "gmtOffset": "UTC -09:00" },
+        { "timeZone": "America/Yakutat", "gmtOffset": "UTC -09:00" },
+        { "timeZone": "Pacific/Honolulu", "gmtOffset": "UTC -10:00" }
+      ]
+    },
+    {
+      "countryCode": "UM",
+      "countryName": "United States Minor Outlying Islands",
+      "metadata": [
+        { "timeZone": "Pacific/Midway", "gmtOffset": "UTC -11:00" },
+        { "timeZone": "Pacific/Wake", "gmtOffset": "UTC +12:00" }
+      ]
+    },
+    {
+      "countryCode": "UY",
+      "countryName": "Uruguay",
+      "metadata": [
+        { "timeZone": "America/Montevideo", "gmtOffset": "UTC -03:00" }
+      ]
+    },
+    {
+      "countryCode": "UZ",
+      "countryName": "Uzbekistan",
+      "metadata": [
+        { "timeZone": "Asia/Samarkand", "gmtOffset": "UTC +05:00" },
+        { "timeZone": "Asia/Tashkent", "gmtOffset": "UTC +05:00" }
+      ]
+    },
+    {
+      "countryCode": "VU",
+      "countryName": "Vanuatu",
+      "metadata": [
+        { "timeZone": "Pacific/Efate", "gmtOffset": "UTC +11:00" }
+      ]
+    },
+    {
+      "countryCode": "VE",
+      "countryName": "Venezuela, Bolivarian Republic of",
+      "metadata": [
+        { "timeZone": "America/Caracas", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "VN",
+      "countryName": "Viet Nam",
+      "metadata": [
+        { "timeZone": "Asia/Ho_Chi_Minh", "gmtOffset": "UTC +07:00" }
+      ]
+    },
+    {
+      "countryCode": "VG",
+      "countryName": "Virgin Islands, British",
+      "metadata": [
+        { "timeZone": "America/Tortola", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "VI",
+      "countryName": "Virgin Islands, U.S.",
+      "metadata": [
+        { "timeZone": "America/St_Thomas", "gmtOffset": "UTC -04:00" }
+      ]
+    },
+    {
+      "countryCode": "WF",
+      "countryName": "Wallis and Futuna",
+      "metadata": [
+        { "timeZone": "Pacific/Wallis", "gmtOffset": "UTC +12:00" }
+      ]
+    },
+    {
+      "countryCode": "YE",
+      "countryName": "Yemen",
+      "metadata": [
+        { "timeZone": "Asia/Aden", "gmtOffset": "UTC +03:00" }
+      ]
+    },
+    {
+      "countryCode": "ZM",
+      "countryName": "Zambia",
+      "metadata": [
+        { "timeZone": "Africa/Lusaka", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "ZW",
+      "countryName": "Zimbabwe",
+      "metadata": [
+        { "timeZone": "Africa/Harare", "gmtOffset": "UTC +02:00" }
+      ]
+    },
+    {
+      "countryCode": "AX",
+      "countryName": "Åland Islands",
+      "metadata": [
+        { "timeZone": "Europe/Mariehamn", "gmtOffset": "UTC +02:00" }
+      ]
+    }
+  ]
+  
+  

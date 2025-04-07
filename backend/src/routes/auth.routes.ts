@@ -89,6 +89,42 @@ router.post('/login', async (req, res) => {
 });
 
 /**
+ * @route POST /api/auth/api-key
+ * @desc Authenticate using API key
+ * @access Public
+ */
+// @ts-ignore - Express typings issue
+router.post('/api-key', async (req, res) => {
+  try {
+    const { apiKey } = req.body;
+    
+    // Validate input
+    if (!apiKey) {
+      console.log('❌ API key authentication failed: Missing API key');
+      res.status(400).json({ 
+        success: false, 
+        message: 'Please provide an API key' 
+      });
+      return;
+    }
+    
+    const result = await AuthService.authenticateWithApiKey({ apiKey });
+    
+    if (result.success) {
+      res.status(200).json(result);
+    } else {
+      res.status(401).json(result);
+    }
+  } catch (error) {
+    console.error('❌ API key authentication route error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Server error during API key authentication' 
+    });
+  }
+});
+
+/**
  * @route GET /api/auth/me
  * @desc Get current user
  * @access Private

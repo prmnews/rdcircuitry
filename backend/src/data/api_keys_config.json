@@ -1,0 +1,25 @@
+[
+  {
+    "userName": "stownsend",
+    "keyType": "admin",
+    "description": "Administrator API key for stownsend",
+    "existingKey": "AunMD5Uvk8VOu&sBm1doHP*KEH%aJa@k%6%NS^9Te92W2FXCLqXqzVAPX*rFn5r@^&dB!Q4XM$!pTNTrJHEXa5JVwnxlj!m3",
+    "expiresInDays": 365,
+    "allowedOrigins": ["http://localhost:3000", "https://rdcircuitry.com"]
+  },
+  {
+    "userName": "psargent",
+    "keyType": "read-only",
+    "description": "Regular user API key for psargent",
+    "existingKey": "znVjPMZ#C79ii*%58x@fzlzj6F3O9NeXiznjM9SSN6aoQS$92m5JRTe&NqqtE6bShVMTAMx4Hu9u8BKT@hrz#XFLUDHGqeTY",
+    "expiresInDays": 365,
+    "allowedOrigins": ["http://localhost:3000", "https://rdcircuitry.com"]
+  },
+  {
+    "userName": "testuser",
+    "keyType": "read-only",
+    "description": "Test user API key",
+    "expiresInDays": 90,
+    "allowedOrigins": ["http://localhost:3000", "https://rdcircuitry.com"]
+  }
+] 

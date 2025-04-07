@@ -10,5 +10,8 @@
     "dev:backend": "pnpm --filter rdcircuitry-backend dev",
     "dev:frontend": "pnpm --filter rdcircuitry-frontend dev",
     "dev": "pnpm -r --parallel dev"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2"
   }
-} 
+}

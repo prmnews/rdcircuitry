@@ -17,8 +17,10 @@ export default function TimeRemainingProgress({
   initialMinutes = 5 
 }: TimeRemainingProgressProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [percentage, setPercentage] = useState(0);
+  const [percentageRemaining, setPercentageRemaining] = useState(100);
   const [timeDisplay, setTimeDisplay] = useState('0m 0s');
+  const [totalMinutesRemaining, setTotalMinutesRemaining] = useState(initialMinutes);
+  const [alertLevel, setAlertLevel] = useState<'normal' | 'yellow' | 'red' | 'expired'>('normal');
   
   useEffect(() => {
     if (!expirationTime) return;
@@ -31,7 +33,9 @@ export default function TimeRemainingProgress({
       // If timer has expired
       if (diff <= 0) {
         setTimeDisplay('0m 0s');
-        setPercentage(100);
+        setPercentageRemaining(0);
+        setTotalMinutesRemaining(0);
+        setAlertLevel('expired');
         return;
       }
       
@@ -39,15 +43,28 @@ export default function TimeRemainingProgress({
       const totalSeconds = Math.floor(diff / 1000);
       const minutes = Math.floor(totalSeconds / 60);
       const seconds = totalSeconds % 60;
+      const minutesWithFraction = minutes + (seconds / 60);
       
       setTimeDisplay(`${minutes}m ${seconds}s`);
+      setTotalMinutesRemaining(minutesWithFraction);
       
-      // Calculate percentage
+      // Calculate percentage remaining
       const initialTime = initialMinutes * 60 * 1000; // convert to ms
-      const elapsed = initialTime - diff;
-      const percentComplete = Math.min(100, Math.max(0, (elapsed / initialTime) * 100));
+      const percentRemaining = Math.min(100, Math.max(0, (diff / initialTime) * 100));
       
-      setPercentage(percentComplete);
+      setPercentageRemaining(percentRemaining);
+      
+      // Set alert levels based on env variables (matching TimeRemainingCard)
+      const redMinutes = Number(process.env.NEXT_PUBLIC_MESSAGE_RED_MINUTES || 1);
+      const yellowMinutes = Number(process.env.NEXT_PUBLIC_MESSAGE_YELLOW_MINUTES || 2);
+      
+      if (minutesWithFraction <= redMinutes) {
+        setAlertLevel('red');
+      } else if (minutesWithFraction <= yellowMinutes) {
+        setAlertLevel('yellow');
+      } else {
+        setAlertLevel('normal');
+      }
     };
     
     calculateTimeRemaining();
@@ -71,17 +88,17 @@ export default function TimeRemainingProgress({
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Draw background circle
+    // Draw background circle (empty/gray)
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
     ctx.fillStyle = '#f3f4f6';
     ctx.fill();
     
-    // Draw progress arc
+    // Draw remaining time arc (colored)
     ctx.beginPath();
     ctx.moveTo(centerX, centerY);
     const startAngle = -0.5 * Math.PI;
-    const endAngle = startAngle + (percentage / 50) * Math.PI;
+    const endAngle = startAngle + (percentageRemaining / 50) * Math.PI; // Sweep 180 degrees for 100%
     
     ctx.arc(
       centerX,
@@ -91,8 +108,15 @@ export default function TimeRemainingProgress({
       endAngle
     );
     
-    // Color based on percentage
-    ctx.fillStyle = percentage >= 75 ? '#f59e0b' : '#f59e0b';
+    // Color based on alert level - matching TimeRemainingCard
+    const getColor = () => {
+      if (alertLevel === 'expired') return '#ef4444'; // red when expired
+      if (alertLevel === 'red') return '#ef4444'; // red
+      if (alertLevel === 'yellow') return '#f59e0b'; // amber
+      return '#10b981'; // green
+    };
+    
+    ctx.fillStyle = getColor();
     ctx.fill();
     
     // Draw inner circle (donut hole)
@@ -108,7 +132,7 @@ export default function TimeRemainingProgress({
     ctx.textBaseline = 'middle';
     ctx.fillText(timeDisplay, centerX, centerY);
     
-  }, [percentage, timeDisplay]);
+  }, [percentageRemaining, timeDisplay, alertLevel]);
   
   return (
     <Card className="h-full">

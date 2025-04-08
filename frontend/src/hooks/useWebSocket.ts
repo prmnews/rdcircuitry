@@ -12,6 +12,8 @@ interface WebSocketHookProps {
   onTimerExpired?: (data: TimerExpiredEvent) => void;
   onMessageTimerStarted?: (data: MessageTimerStartedEvent) => void;
   onMessageTimerExpired?: (data: MessageTimerExpiredEvent) => void;
+  onConnect?: () => void;
+  onDisconnect?: () => void;
 }
 
 interface WebSocketState {
@@ -23,133 +25,164 @@ interface WebSocketState {
   connected: boolean;
 }
 
-export default function useWebSocket({
+export const useWebSocket = ({
   onTimerReset,
   onTimerExpired,
   onMessageTimerStarted,
-  onMessageTimerExpired
-}: WebSocketHookProps = {}) {
-  const [socket, setSocket] = useState<Socket | null>(null);
+  onMessageTimerExpired,
+  onConnect,
+  onDisconnect
+}: WebSocketHookProps = {}) => {
   const [state, setState] = useState<WebSocketState>({
     lastEvent: null,
-    connected: false
+    connected: false,
   });
-  
-  // Store callback references to prevent unnecessary socket reconnections
+  const socketRef = useRef<Socket | null>(null);
   const callbacksRef = useRef({
     onTimerReset,
     onTimerExpired,
     onMessageTimerStarted,
-    onMessageTimerExpired
+    onMessageTimerExpired,
+    onConnect,
+    onDisconnect
   });
-  
-  // Update the refs when callbacks change
+
+  // Update the callbacks ref when the props change
   useEffect(() => {
     callbacksRef.current = {
       onTimerReset,
       onTimerExpired,
       onMessageTimerStarted,
-      onMessageTimerExpired
+      onMessageTimerExpired,
+      onConnect,
+      onDisconnect
     };
-  }, [onTimerReset, onTimerExpired, onMessageTimerStarted, onMessageTimerExpired]);
+  }, [onTimerReset, onTimerExpired, onMessageTimerStarted, onMessageTimerExpired, onConnect, onDisconnect]);
 
   useEffect(() => {
-    // Create socket connection
-    const wsUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4000';
-    console.log(`Connecting to WebSocket at ${wsUrl}`);
-    
-    const socketInstance = io(wsUrl, {
-      reconnectionAttempts: 5,
-      reconnectionDelay: 1000,
-      timeout: 10000
-    });
-    
-    socketInstance.on('connect', () => {
-      console.log('WebSocket connected with ID:', socketInstance.id);
-      setState(prev => ({ ...prev, connected: true }));
-    });
-    
-    socketInstance.on('disconnect', (reason) => {
-      console.log('WebSocket disconnected:', reason);
-      setState(prev => ({ ...prev, connected: false }));
-    });
-    
-    socketInstance.on('connect_error', (error) => {
-      console.error('WebSocket connection error:', error);
-    });
-    
-    // Register event listeners
-    socketInstance.on('timer-reset', (data: TimerResetEvent) => {
-      setState(prev => ({
-        ...prev,
-        lastEvent: {
-          type: 'timer-reset',
-          data,
-          timestamp: new Date().toISOString()
-        }
-      }));
+    if (!socketRef.current) {
+      const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000', {
+        reconnection: true,
+        reconnectionAttempts: 10,
+        reconnectionDelay: 1000, // Start with 1s delay
+        reconnectionDelayMax: 30000, // Max delay of 30s
+        randomizationFactor: 0.5, // Add some randomization to prevent connection storms
+        timeout: 20000, // Timeout for connection
+        transports: ['websocket', 'polling'], // Try WebSocket first, fall back to polling
+      });
       
-      if (callbacksRef.current.onTimerReset) {
-        callbacksRef.current.onTimerReset(data);
-      }
-    });
-    
-    socketInstance.on('timer-expired', (data: TimerExpiredEvent) => {
-      setState(prev => ({
-        ...prev,
-        lastEvent: {
-          type: 'timer-expired',
-          data,
-          timestamp: new Date().toISOString()
+      socketRef.current = socket;
+
+      socket.on('connect', () => {
+        console.log('WebSocket connected');
+        setState(prev => ({ ...prev, connected: true }));
+        if (callbacksRef.current.onConnect) {
+          callbacksRef.current.onConnect();
         }
-      }));
-      
-      if (callbacksRef.current.onTimerExpired) {
-        callbacksRef.current.onTimerExpired(data);
-      }
-    });
-    
-    socketInstance.on('message-timer-started', (data: MessageTimerStartedEvent) => {
-      setState(prev => ({
-        ...prev,
-        lastEvent: {
-          type: 'message-timer-started',
-          data,
-          timestamp: new Date().toISOString()
+      });
+
+      socket.on('disconnect', (reason) => {
+        console.log(`WebSocket disconnected: ${reason}`);
+        setState(prev => ({ ...prev, connected: false }));
+        if (callbacksRef.current.onDisconnect) {
+          callbacksRef.current.onDisconnect();
         }
-      }));
+      });
+
+      socket.on('connect_error', (error) => {
+        console.error('WebSocket connection error:', error);
+      });
       
-      if (callbacksRef.current.onMessageTimerStarted) {
-        callbacksRef.current.onMessageTimerStarted(data);
-      }
-    });
-    
-    socketInstance.on('message-timer-expired', (data: MessageTimerExpiredEvent) => {
-      setState(prev => ({
-        ...prev,
-        lastEvent: {
-          type: 'message-timer-expired',
-          data,
-          timestamp: new Date().toISOString()
+      socket.on('reconnect', (attempt) => {
+        console.log(`WebSocket reconnected after ${attempt} attempts`);
+      });
+      
+      socket.on('reconnect_attempt', (attempt) => {
+        console.log(`WebSocket reconnection attempt ${attempt}`);
+      });
+      
+      socket.on('reconnect_error', (error) => {
+        console.error('WebSocket reconnection error:', error);
+      });
+      
+      socket.on('reconnect_failed', () => {
+        console.error('WebSocket reconnection failed after all attempts');
+      });
+
+      // Register event listeners
+      socket.on('timer-reset', (data: TimerResetEvent) => {
+        setState(prev => ({
+          ...prev,
+          lastEvent: {
+            type: 'timer-reset',
+            data,
+            timestamp: new Date().toISOString()
+          }
+        }));
+        
+        if (callbacksRef.current.onTimerReset) {
+          callbacksRef.current.onTimerReset(data);
         }
-      }));
+      });
       
-      if (callbacksRef.current.onMessageTimerExpired) {
-        callbacksRef.current.onMessageTimerExpired(data);
-      }
-    });
-    
-    setSocket(socketInstance);
-    
+      socket.on('timer-expired', (data: TimerExpiredEvent) => {
+        setState(prev => ({
+          ...prev,
+          lastEvent: {
+            type: 'timer-expired',
+            data,
+            timestamp: new Date().toISOString()
+          }
+        }));
+        
+        if (callbacksRef.current.onTimerExpired) {
+          callbacksRef.current.onTimerExpired(data);
+        }
+      });
+      
+      socket.on('message-timer-started', (data: MessageTimerStartedEvent) => {
+        setState(prev => ({
+          ...prev,
+          lastEvent: {
+            type: 'message-timer-started',
+            data,
+            timestamp: new Date().toISOString()
+          }
+        }));
+        
+        if (callbacksRef.current.onMessageTimerStarted) {
+          callbacksRef.current.onMessageTimerStarted(data);
+        }
+      });
+      
+      socket.on('message-timer-expired', (data: MessageTimerExpiredEvent) => {
+        setState(prev => ({
+          ...prev,
+          lastEvent: {
+            type: 'message-timer-expired',
+            data,
+            timestamp: new Date().toISOString()
+          }
+        }));
+        
+        if (callbacksRef.current.onMessageTimerExpired) {
+          callbacksRef.current.onMessageTimerExpired(data);
+        }
+      });
+    }
+
     // Cleanup
     return () => {
       console.log('Cleaning up WebSocket connection');
-      socketInstance.disconnect();
+      socketRef.current?.disconnect();
     };
   }, []); // Empty dependency array - only create the socket once
 
   return {
     ...state,
-    socket
+    socket: socketRef.current
   };
-} 
+}
+
+// Also export as default for compatibility
+export default useWebSocket; 

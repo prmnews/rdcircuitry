@@ -242,6 +242,7 @@ export const messageApi = {
     return fetchWithAuth<{ 
       success: boolean;
       connectionError?: boolean;
+      message?: string;
       timer?: {
         triggerTime: string;
         remainingTime: number;
@@ -251,6 +252,21 @@ export const messageApi = {
       method: 'POST',
       body: JSON.stringify({ url }),
     });
+  },
+  
+  getMessageStatus: async () => {
+    return fetchWithAuth<{
+      success: boolean;
+      connectionError?: boolean;
+      timerActive: boolean;
+      message: string;
+      timer?: {
+        triggerTime: string;
+        remainingTime: number;
+        formattedRemaining: string;
+        messageContent: { text: string; url?: string }
+      }
+    }>('/message/status');
   },
 };
 

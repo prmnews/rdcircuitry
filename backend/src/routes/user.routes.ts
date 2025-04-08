@@ -32,9 +32,13 @@ router.get('/kpi-stats', authenticateToken, async (req, res) => {
     const userStats = await Promise.all(
       users.map(async (user) => {
         // Get timer reset events for this user
+        const now = new Date();
+        const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+        
         const timerResets = await Event.find({
           userName: user.userName,
           eventType: 'TIMER_RESET',
+          trueDateTime: { $gte: oneDayAgo }
         }).sort({ trueDateTime: 1 });
         
         if (timerResets.length === 0) {
@@ -52,18 +56,26 @@ router.get('/kpi-stats', authenticateToken, async (req, res) => {
         let totalRemainder = 0;
         let minRemainder = Number.MAX_VALUE;
         let maxRemainder = 0;
+        let validRemainderCount = 0;
         
         timerResets.forEach(event => {
-          const details = typeof event.details === 'string' 
-            ? JSON.parse(event.details) 
-            : event.details;
-            
-          if (details?.remainder) {
-            const remainderMinutes = details.remainder / 60; // Convert seconds to minutes
-            
-            minRemainder = Math.min(minRemainder, remainderMinutes);
-            maxRemainder = Math.max(maxRemainder, remainderMinutes);
-            totalRemainder += remainderMinutes;
+          let remainder = 0;
+          
+          // Extract remainder from event details
+          if (event.details) {
+            const details = typeof event.details === 'string' 
+              ? JSON.parse(event.details) 
+              : event.details;
+              
+            if (details?.remainder !== undefined) {
+              // Convert seconds to minutes and use absolute value to handle negative values
+              remainder = Math.abs(details.remainder) / 60;
+              
+              minRemainder = Math.min(minRemainder, remainder);
+              maxRemainder = Math.max(maxRemainder, remainder);
+              totalRemainder += remainder;
+              validRemainderCount++;
+            }
           }
         });
         
@@ -76,7 +88,7 @@ router.get('/kpi-stats', authenticateToken, async (req, res) => {
           id: user._id.toString(),
           userName: user.userName,
           minRemainder,
-          avgRemainder: timerResets.length > 0 ? totalRemainder / timerResets.length : 0,
+          avgRemainder: validRemainderCount > 0 ? totalRemainder / validRemainderCount : 0,
           maxRemainder,
           totalResets: timerResets.length
         };

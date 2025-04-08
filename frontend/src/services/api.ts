@@ -13,31 +13,41 @@ async function fetchWithAuth<T>(
   endpoint: string, 
   options: RequestInit = {}
 ): Promise<T> {
-  const token = getToken();
-  
-  const headers: HeadersInit = {
-    'Content-Type': 'application/json',
-    ...options.headers,
-  };
-  
-  const requestOptions = {
-    ...options,
-    headers: token ? { 
-      ...headers, 
-      'Authorization': `Bearer ${token}`
-    } : headers,
-  };
-  
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, requestOptions);
-  
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(
-      errorData.message || `API error: ${response.status} ${response.statusText}`
-    );
+  try {
+    const token = getToken();
+    
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    };
+    
+    const requestOptions = {
+      ...options,
+      headers: token ? { 
+        ...headers, 
+        'Authorization': `Bearer ${token}`
+      } : headers,
+    };
+    
+    const apiUrl = `${API_BASE_URL}${endpoint}`;
+    console.log(`🔄 API Request: ${apiUrl}`);
+    
+    const response = await fetch(apiUrl, requestOptions);
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error(`❌ API Error: ${response.status} ${response.statusText}`, errorData);
+      throw new Error(
+        errorData.message || `API error: ${response.status} ${response.statusText}`
+      );
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error(`❌ Fetch error for ${endpoint}:`, error);
+    // Rethrow to allow components to handle the error
+    throw error;
   }
-  
-  return await response.json();
 }
 
 // Auth API calls
@@ -81,6 +91,13 @@ export const timerApi = {
       method: 'POST',
       body: JSON.stringify({ reason: reason || 'Manual reset from dashboard' }),
     });
+  },
+  
+  getTimeRemainingHistory: async () => {
+    return fetchWithAuth<{ 
+      success: boolean; 
+      data: { hour: number; value: number }[] 
+    }>('/timer/history');
   },
 };
 

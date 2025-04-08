@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import UserKpiGrid from "@/components/dashboard/UserKpiGrid";
 import CurrentTimeCard from "@/components/dashboard/CurrentTimeCard";
 import EstimatedExpirationCard from "@/components/dashboard/EstimatedExpirationCard";
@@ -11,25 +11,37 @@ import TimeRemainingGraph from "@/components/dashboard/TimeRemainingGraph";
 import { User, TimerState } from "@/types";
 import { authApi, timerApi } from "@/services/api";
 import { toast } from 'react-hot-toast';
+import useWebSocket from "@/hooks/useWebSocket";
 
 export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null);
   const [timerState, setTimerState] = useState<TimerState | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const previousExpiredState = useRef<boolean | null>(null);
+  const [timeRemainingHistory, setTimeRemainingHistory] = useState<{ hour: number; value: number }[]>([]);
   
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
+  // Fetch data function for reuse
+  const fetchData = useCallback(async (showLoadingState = true, retryCount = 0) => {
+    try {
+      if (showLoadingState) {
         setLoading(true);
-        
-        // Fetch current user data
-        const userData = await authApi.getCurrentUser();
+      }
+      
+      // Fetch current user data
+      let userData;
+      try {
+        userData = await authApi.getCurrentUser();
         if (userData.user) {
           setUser(userData.user);
         }
-        
-        // Fetch timer state
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        // Continue execution even if user data fails
+      }
+      
+      // Fetch timer state
+      try {
         const timerData = await timerApi.getTimerState();
         setTimerState(timerData);
         
@@ -45,33 +57,133 @@ export default function DashboardPage() {
               color: '#fff',
             },
           });
-          
-          // After 5 seconds, if we were to implement message lag timer activation, it would go here
         }
         
         // Store current expired state for next comparison
         previousExpiredState.current = timerData?.isExpired || false;
-        
       } catch (error) {
-        console.error('Error fetching dashboard data:', error);
-        toast.error('Error loading dashboard data');
-      } finally {
+        console.error('Error fetching timer state:', error);
+        // Continue execution even if timer state fails
+      }
+      
+      // Fetch time remaining history data
+      try {
+        const historyData = await timerApi.getTimeRemainingHistory();
+        if (historyData.success) {
+          setTimeRemainingHistory(historyData.data);
+        }
+      } catch (error) {
+        console.error('Error fetching time remaining history:', error);
+        // Continue execution even if history data fails
+      }
+      
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
+      
+      // Retry up to 3 times with exponential backoff
+      if (retryCount < 3) {
+        const delay = Math.pow(2, retryCount) * 1000; // 1s, 2s, 4s
+        console.log(`Retrying in ${delay}ms (attempt ${retryCount + 1}/3)...`);
+        
+        setTimeout(() => {
+          fetchData(false, retryCount + 1);
+        }, delay);
+      } else {
+        toast.error('Error loading dashboard data. Please refresh the page.');
+        setError('Failed to load dashboard data after multiple attempts');
+      }
+    } finally {
+      if (showLoadingState) {
         setLoading(false);
       }
-    };
-    
-    fetchData();
-    
-    // Refresh every 5 seconds instead of 30 to catch expiration faster
-    const interval = setInterval(fetchData, 5000);
-    return () => clearInterval(interval);
+    }
   }, []);
   
-  const handleTimerReset = (newExpirationTime: string) => {
+  // Memoized function to update time remaining history
+  const updateTimeRemainingHistory = useCallback(() => {
+    timerApi.getTimeRemainingHistory()
+      .then(historyData => {
+        if (historyData.success) {
+          setTimeRemainingHistory(historyData.data);
+        }
+      })
+      .catch(err => console.error('Error updating time graph after reset:', err));
+  }, []);
+  
+  // Memoized websocket handlers to prevent constant reconnections
+  const handleTimerReset = useCallback((data: { 
+    resetBy: string; 
+    newExpirationTime: string; 
+    resetTime: string; 
+    reason?: string;
+    remainder?: number;
+  }) => {
+    console.log('WebSocket: Timer reset event received', data);
+    // Update timer state from socket data
+    setTimerState(prev => {
+      if (!prev) return prev;
+      
+      return {
+        ...prev,
+        isExpired: false,
+        targetTime: data.newExpirationTime,
+        resetEvents: prev.resetEvents ? {
+          last24Hours: (prev.resetEvents.last24Hours || 0) + 1,
+          total: (prev.resetEvents.total || 0) + 1
+        } : undefined
+      };
+    });
+    
+    // Reset expired state
+    previousExpiredState.current = false;
+    
+    // Refresh time remaining graph data after a short delay
+    setTimeout(updateTimeRemainingHistory, 2000); // Wait 2 seconds for backend to update
+    
+    toast.success(`Timer reset by ${data.resetBy}`, {
+      duration: 3000,
+      icon: '🔄'
+    });
+  }, [updateTimeRemainingHistory]);
+  
+  const handleTimerExpired = useCallback((data: { 
+    expiredAt: string; 
+    messageData?: { 
+      text: string; 
+      url?: string; 
+    }; 
+  }) => {
+    console.log('WebSocket: Timer expired event received', data);
+    // Refresh data when timer expires
+    fetchData(false);
+    
+    toast.error('Timer has expired!', {
+      duration: 5000,
+      icon: '⚠️'
+    });
+  }, [fetchData]);
+  
+  // Setup websocket event handlers
+  useWebSocket({
+    onTimerReset: handleTimerReset,
+    onTimerExpired: handleTimerExpired
+  });
+  
+  // Initial data fetch
+  useEffect(() => {
+    fetchData();
+    
+    // Refresh every 30 seconds as a fallback
+    const interval = setInterval(() => fetchData(false), 30000);
+    return () => clearInterval(interval);
+  }, [fetchData]);
+  
+  // Memoized function for the reset button callback
+  const handleUserTimerReset = useCallback((newExpirationTime: string) => {
     setTimerState(prev => prev ? {
       ...prev,
       targetTime: newExpirationTime,
-      isExpired: false, // Update expired state on reset
+      isExpired: false,
       resetEvents: {
         last24Hours: (prev.resetEvents?.last24Hours || 0) + 1,
         total: (prev.resetEvents?.total || 0) + 1
@@ -80,7 +192,10 @@ export default function DashboardPage() {
     
     // Also update our ref to avoid showing the toast again
     previousExpiredState.current = false;
-  };
+    
+    // Refresh time remaining graph data after a short delay
+    setTimeout(updateTimeRemainingHistory, 2000); // Wait 2 seconds for backend to update
+  }, [updateTimeRemainingHistory]);
   
   return (
     <div className="space-y-6">
@@ -96,7 +211,7 @@ export default function DashboardPage() {
         <EstimatedExpirationCard 
           expirationTime={timerState?.targetTime} 
           userData={user}
-          onReset={handleTimerReset}
+          onReset={handleUserTimerReset}
         />
         <TimeRemainingCard expirationTime={timerState?.targetTime} />
         <ResetEventsCard resetEvents={timerState?.resetEvents} />
@@ -109,7 +224,7 @@ export default function DashboardPage() {
         />
         
         <div className="sm:col-span-1 lg:col-span-1">
-          <TimeRemainingGraph />
+          <TimeRemainingGraph data={timeRemainingHistory} />
         </div>
       </div>
       

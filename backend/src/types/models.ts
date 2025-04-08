@@ -47,12 +47,13 @@ export interface IEventData {
 
 export interface IEvent extends Document {
   userName: string;
-  isUserValidation: boolean;
+  isUserValidation?: boolean;
   eventType: EventType;
   location: ILocation;
   trueDateTime: Date;
-  remainder: number | null;
-  processed: boolean;
+  localDateTime?: Date;
+  remainder?: number | null;
+  processed?: boolean;
   details: string | null;
   createdAt: Date;
   updatedAt: Date;

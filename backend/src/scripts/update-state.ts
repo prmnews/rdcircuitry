@@ -5,7 +5,7 @@
  * Usage:
  *   ts-node update-state.ts [minutes] [--reset-rdi] [--interactive]
  *   
- *   minutes: Number of minutes to set timer for (default: 5)
+ *   minutes: Number of minutes to set timer for (default: 3)
  *   --reset-rdi: Reset RDI status to false
  *   --interactive: Enable interactive prompts
  */
@@ -44,7 +44,7 @@ function parseArguments(): { minutes: number; resetRdi: boolean; interactive: bo
   const resetRdi = args.includes('--reset-rdi');
   
   // Try to find minutes argument (first non-flag argument)
-  let minutes = 5; // Default
+  let minutes = parseInt(process.env.TIMER_INITIAL_MINUTES || "3");
   
   for (const arg of args) {
     if (!arg.startsWith('--')) {

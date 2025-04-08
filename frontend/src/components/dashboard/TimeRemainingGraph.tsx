@@ -1,29 +1,60 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { BarChart3 } from "lucide-react";
+import { BarChart3, Loader2 } from "lucide-react";
+import { timerApi } from "@/services/api";
 
 interface TimeRemainingGraphProps {
   data?: { hour: number; value: number }[];
 }
 
-export default function TimeRemainingGraph({ data }: TimeRemainingGraphProps) {
+export default function TimeRemainingGraph({ data: propData }: TimeRemainingGraphProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [data, setData] = useState<{ hour: number; value: number }[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   
-  // Generate sample data if none provided
-  const graphData = data || Array.from({ length: 24 }, (_, i) => ({
-    hour: i,
-    value: Math.floor(Math.random() * 100) + 20
-  }));
-  
+  // Fetch data from API if no prop data is provided
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (propData) {
+      setData(propData);
+      setLoading(false);
+      return;
+    }
     
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await timerApi.getTimeRemainingHistory();
+        if (response.success) {
+          setData(response.data);
+        } else {
+          setError('Failed to load graph data');
+        }
+      } catch (err) {
+        console.error('Error fetching time remaining history:', err);
+        setError('Failed to load graph data');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
+    
+    // Refresh every 10 minutes
+    const interval = setInterval(fetchData, 10 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, [propData]);
+  
+  // Draw chart when data changes
+  useEffect(() => {
+    if (loading || !data.length || !canvasRef.current) return;
+    
+    const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     
@@ -37,8 +68,8 @@ export default function TimeRemainingGraph({ data }: TimeRemainingGraphProps) {
     ctx.clearRect(0, 0, width, height);
     
     // Find min and max values
-    const values = graphData.map(d => d.value);
-    const maxValue = Math.max(...values, 160);
+    const values = data.map(d => d.value);
+    const maxValue = Math.max(...values, 1); // At least 1 minute
     const minValue = Math.min(...values, 0);
     
     // Draw axes
@@ -92,7 +123,7 @@ export default function TimeRemainingGraph({ data }: TimeRemainingGraphProps) {
     ctx.beginPath();
     ctx.moveTo(padding, height - padding);
     
-    graphData.forEach((point, i) => {
+    data.forEach((point, i) => {
       const x = padding + (i * xStep);
       const normalizedValue = (point.value - minValue) / (maxValue - minValue);
       const y = height - padding - (normalizedValue * graphHeight);
@@ -114,7 +145,7 @@ export default function TimeRemainingGraph({ data }: TimeRemainingGraphProps) {
     
     // Draw line on top of area
     ctx.beginPath();
-    graphData.forEach((point, i) => {
+    data.forEach((point, i) => {
       const x = padding + (i * xStep);
       const normalizedValue = (point.value - minValue) / (maxValue - minValue);
       const y = height - padding - (normalizedValue * graphHeight);
@@ -130,7 +161,7 @@ export default function TimeRemainingGraph({ data }: TimeRemainingGraphProps) {
     ctx.lineWidth = 2;
     ctx.stroke();
     
-  }, [graphData]);
+  }, [data, loading]);
   
   return (
     <Card className="h-full">
@@ -139,14 +170,24 @@ export default function TimeRemainingGraph({ data }: TimeRemainingGraphProps) {
         <BarChart3 className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="p-2 sm:p-6">
-        <div className="h-[180px] sm:h-[200px] w-full">
-          <canvas 
-            ref={canvasRef} 
-            width={500} 
-            height={200} 
-            className="max-w-full h-full"
-          />
-        </div>
+        {loading ? (
+          <div className="flex items-center justify-center h-[180px] sm:h-[200px]">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        ) : error ? (
+          <div className="flex items-center justify-center h-[180px] sm:h-[200px] text-destructive text-sm">
+            {error}
+          </div>
+        ) : (
+          <div className="h-[180px] sm:h-[200px] w-full">
+            <canvas 
+              ref={canvasRef} 
+              width={500} 
+              height={200} 
+              className="max-w-full h-full"
+            />
+          </div>
+        )}
       </CardContent>
     </Card>
   );

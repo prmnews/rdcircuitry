@@ -141,6 +141,7 @@ export class SocketManager {
     newExpirationTime: string; 
     resetTime: string; 
     reason?: string;
+    remainder?: number;
   }): void {
     this.io.emit(SocketEvents.TIMER_RESET, data);
     console.log(`Timer reset event emitted by ${data.resetBy}`);

@@ -3,6 +3,7 @@ import { authenticateToken } from '../middleware/auth';
 import { State, Event, User } from '../models';
 import { SocketEvents } from '../websocket/socket-manager';
 import type { Request, Response } from 'express';
+import mongoose from 'mongoose';
 
 // Create interface for request with user
 interface AuthRequest extends Request {
@@ -117,6 +118,14 @@ router.post('/reset', authenticateToken, async (req: AuthRequest, res: Response)
     const initialMinutes = parseInt(process.env.TIMER_INITIAL_MINUTES || '3', 10);
     const newExpirationTime = new Date(now.getTime() + (initialMinutes * 60 * 1000));
     
+    // Calculate remainder between now and previous expiration (in seconds)
+    // Negative remainder means timer expired, positive means time left
+    let remainder = 0;
+    if (state.currentState) {
+      const expiration = new Date(state.currentState);
+      remainder = Math.round((expiration.getTime() - now.getTime()) / 1000);
+    }
+    
     // Update state
     state.currentState = newExpirationTime;
     state.isRDI = false;
@@ -137,10 +146,7 @@ router.post('/reset', authenticateToken, async (req: AuthRequest, res: Response)
       gmtOffset: '-480'
     };
     
-    // Create event with default remainder of 0
-    const remainder = 0;
-    
-    // Create event in database
+    // Create event in database with proper remainder
     await Event.logTimerReset({
       userName,
       location,
@@ -151,17 +157,20 @@ router.post('/reset', authenticateToken, async (req: AuthRequest, res: Response)
       }
     });
     
-    // Emit socket event if socketManager available
-    if (global.socketManager) {
+    // Emit WebSocket event with socketManager
+    if (typeof global !== 'undefined' && global.socketManager) {
       global.socketManager.emitTimerReset({
         resetBy: userName,
-        newExpirationTime: newExpirationTime.toISOString(),
         resetTime: now.toISOString(),
-        reason: reason || 'Manual reset from dashboard'
+        newExpirationTime: newExpirationTime.toISOString(),
+        reason: reason || 'Manual reset from dashboard',
+        remainder
       });
+    } else {
+      console.warn('Socket manager not available for timer reset event');
     }
     
-    // Return success
+    // Return success response
     res.status(200).json({
       success: true,
       newExpirationTime: newExpirationTime.toISOString(),
@@ -176,6 +185,79 @@ router.post('/reset', authenticateToken, async (req: AuthRequest, res: Response)
     res.status(500).json({
       success: false,
       message: 'Server error resetting timer'
+    });
+  }
+});
+
+/**
+ * @route GET /api/timer/history
+ * @desc Get time remaining data grouped by hour of day
+ * @access Private
+ */
+// @ts-ignore - Express typings issue
+router.get('/history', authenticateToken, async (_req: Request, res: Response) => {
+  try {
+    const Event = mongoose.model('Event');
+    
+    // Get current date
+    const now = new Date();
+    const yesterday = new Date(now);
+    yesterday.setDate(yesterday.getDate() - 1);
+    
+    // Find reset events for the last 24 hours
+    const events = await Event.find({
+      eventType: 'TIMER_RESET',
+      trueDateTime: { $gte: yesterday, $lte: now }
+    }).sort({ trueDateTime: 1 });
+    
+    // Initialize data array with 0 values for all 24 hours
+    const hourlyData = Array.from({ length: 24 }, (_, i) => ({
+      hour: i,
+      value: 0,
+      count: 0
+    }));
+    
+    // Process events to get time remaining by hour
+    events.forEach(event => {
+      const eventDate = new Date(event.trueDateTime);
+      const hour = eventDate.getHours();
+      
+      // Parse remainder from details
+      let remainder = 0;
+      if (event.details) {
+        const details = typeof event.details === 'string' 
+          ? JSON.parse(event.details) 
+          : event.details;
+        
+        if (details?.remainder !== undefined) {
+          // Convert seconds to minutes (always use absolute value)
+          remainder = Math.abs(details.remainder) / 60;
+        }
+      }
+      
+      // Update the value for this hour
+      const hourData = hourlyData.find(item => item.hour === hour);
+      if (hourData) {
+        hourData.value += remainder;
+        hourData.count += 1;
+      }
+    });
+    
+    // Calculate averages for each hour and remove the count property
+    const result = hourlyData.map(hourData => ({
+      hour: hourData.hour,
+      value: hourData.count > 0 ? hourData.value / hourData.count : 0
+    }));
+    
+    res.status(200).json({
+      success: true,
+      data: result
+    });
+  } catch (error) {
+    console.error('❌ Error fetching timer history:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error fetching timer history'
     });
   }
 });

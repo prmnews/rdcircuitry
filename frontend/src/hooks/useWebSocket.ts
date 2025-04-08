@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import {
   TimerResetEvent,
@@ -34,20 +34,48 @@ export default function useWebSocket({
     lastEvent: null,
     connected: false
   });
+  
+  // Store callback references to prevent unnecessary socket reconnections
+  const callbacksRef = useRef({
+    onTimerReset,
+    onTimerExpired,
+    onMessageTimerStarted,
+    onMessageTimerExpired
+  });
+  
+  // Update the refs when callbacks change
+  useEffect(() => {
+    callbacksRef.current = {
+      onTimerReset,
+      onTimerExpired,
+      onMessageTimerStarted,
+      onMessageTimerExpired
+    };
+  }, [onTimerReset, onTimerExpired, onMessageTimerStarted, onMessageTimerExpired]);
 
   useEffect(() => {
     // Create socket connection
     const wsUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4000';
-    const socketInstance = io(wsUrl);
+    console.log(`Connecting to WebSocket at ${wsUrl}`);
+    
+    const socketInstance = io(wsUrl, {
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
+      timeout: 10000
+    });
     
     socketInstance.on('connect', () => {
-      console.log('WebSocket connected');
+      console.log('WebSocket connected with ID:', socketInstance.id);
       setState(prev => ({ ...prev, connected: true }));
     });
     
-    socketInstance.on('disconnect', () => {
-      console.log('WebSocket disconnected');
+    socketInstance.on('disconnect', (reason) => {
+      console.log('WebSocket disconnected:', reason);
       setState(prev => ({ ...prev, connected: false }));
+    });
+    
+    socketInstance.on('connect_error', (error) => {
+      console.error('WebSocket connection error:', error);
     });
     
     // Register event listeners
@@ -61,8 +89,8 @@ export default function useWebSocket({
         }
       }));
       
-      if (onTimerReset) {
-        onTimerReset(data);
+      if (callbacksRef.current.onTimerReset) {
+        callbacksRef.current.onTimerReset(data);
       }
     });
     
@@ -76,8 +104,8 @@ export default function useWebSocket({
         }
       }));
       
-      if (onTimerExpired) {
-        onTimerExpired(data);
+      if (callbacksRef.current.onTimerExpired) {
+        callbacksRef.current.onTimerExpired(data);
       }
     });
     
@@ -91,8 +119,8 @@ export default function useWebSocket({
         }
       }));
       
-      if (onMessageTimerStarted) {
-        onMessageTimerStarted(data);
+      if (callbacksRef.current.onMessageTimerStarted) {
+        callbacksRef.current.onMessageTimerStarted(data);
       }
     });
     
@@ -106,8 +134,8 @@ export default function useWebSocket({
         }
       }));
       
-      if (onMessageTimerExpired) {
-        onMessageTimerExpired(data);
+      if (callbacksRef.current.onMessageTimerExpired) {
+        callbacksRef.current.onMessageTimerExpired(data);
       }
     });
     
@@ -115,9 +143,10 @@ export default function useWebSocket({
     
     // Cleanup
     return () => {
+      console.log('Cleaning up WebSocket connection');
       socketInstance.disconnect();
     };
-  }, [onTimerReset, onTimerExpired, onMessageTimerStarted, onMessageTimerExpired]);
+  }, []); // Empty dependency array - only create the socket once
 
   return {
     ...state,

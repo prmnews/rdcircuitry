@@ -29,15 +29,21 @@ export default function EstimatedExpirationCard({
   const { toLocalTime } = useTimezone(userData);
   
   const handleReset = async () => {
+    if (isResetting) return; // Prevent double-clicks
+    
     try {
       setIsResetting(true);
       
       const response = await timerApi.resetTimer();
       
-      toast.success('Timer reset successful');
-      
-      if (onReset && response.newExpirationTime) {
-        onReset(response.newExpirationTime);
+      if (response.success) {
+        toast.success('Timer reset successful');
+        
+        if (onReset && response.newExpirationTime) {
+          onReset(response.newExpirationTime);
+        }
+      } else {
+        toast.error('Failed to reset timer');
       }
     } catch (error) {
       console.error('Error resetting timer:', error);

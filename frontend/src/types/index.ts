@@ -52,6 +52,7 @@ export interface TimerResetEvent {
   newExpirationTime: string;
   resetTime: string;
   reason?: string;
+  remainder?: number;
 }
 
 export interface TimerExpiredEvent {

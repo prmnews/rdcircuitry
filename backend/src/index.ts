@@ -4,6 +4,8 @@ import { Server } from 'socket.io';
 import cors from 'cors';
 import { connectToDatabase } from './lib/database';
 import authRoutes from './routes/auth.routes';
+import userRoutes from './routes/user.routes';
+import timerRoutes from './routes/timer.routes';
 import { SocketManager } from './websocket/socket-manager';
 import { SERVER_CONFIG, validateConfig } from './config';
 
@@ -16,13 +18,18 @@ const server = http.createServer(app);
 
 // Middleware
 app.use(cors({
-  origin: [SERVER_CONFIG.FRONTEND_URL, 'http://localhost:3001'],
-  credentials: true
+  origin: [SERVER_CONFIG.FRONTEND_URL, 'http://localhost:3000', 'http://localhost:3001'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  maxAge: 86400 // 24 hours
 }));
 app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/timer', timerRoutes);
 
 // Basic health check route
 app.get('/api/health', (_req: Request, res: Response) => {
@@ -32,7 +39,7 @@ app.get('/api/health', (_req: Request, res: Response) => {
 // WebSocket server
 const io = new Server(server, {
   cors: {
-    origin: SERVER_CONFIG.FRONTEND_URL,
+    origin: [SERVER_CONFIG.FRONTEND_URL, 'http://localhost:3000', 'http://localhost:3001'],
     methods: ['GET', 'POST'],
     credentials: true
   }

@@ -132,4 +132,18 @@ export class SocketManager {
       this.io.to(socketId).emit(SocketEvents.NOTIFICATION, { message, type, timestamp: new Date() });
     });
   }
+
+  /**
+   * Emit timer reset event to all connected clients
+   */
+  public emitTimerReset(data: { 
+    resetBy: string; 
+    newExpirationTime: string; 
+    resetTime: string; 
+    reason?: string;
+    remainder?: number;
+  }): void {
+    this.io.emit(SocketEvents.TIMER_RESET, data);
+    console.log(`Timer reset event emitted by ${data.resetBy}`);
+  }
 } 

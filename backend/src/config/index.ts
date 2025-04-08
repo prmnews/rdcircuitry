@@ -5,7 +5,7 @@ dotenv.config();
 
 // Server Config
 export const SERVER_CONFIG = {
-  PORT: process.env.PORT || '3000',
+  PORT: process.env.PORT || '4000',
   NODE_ENV: process.env.NODE_ENV || 'development',
   FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:3000',
   WEBSOCKET_PORT: process.env.WEBSOCKET_PORT || '3001',

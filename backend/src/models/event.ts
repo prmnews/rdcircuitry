@@ -34,6 +34,10 @@ const EventSchema = new mongoose.Schema({
     required: true,
     index: true
   },
+  localDateTime: {
+    type: Date,
+    default: null
+  },
   remainder: { 
     type: Number,
     default: null
@@ -65,23 +69,43 @@ EventSchema.statics.getRecentResets = async function(hours: number = 24): Promis
   return count;
 };
 
+/**
+ * Log a timer reset event
+ */
 EventSchema.statics.logTimerReset = async function(data: IEventData): Promise<IEvent> {
-  console.log(`📝 Logging timer reset event for user: ${data.userName}`);
-  console.log(`   Location: ${data.location.countryName} (${data.location.countryCode})`);
+  const { userName, location, remainder, details } = data;
   
-  const event = await this.create({
-    userName: data.userName || 'system',
-    isUserValidation: true,
+  // Ensure remainder is included in details
+  const eventDetails = {
+    ...details,
+    remainder: remainder !== undefined ? remainder : 0 // Make sure remainder is set even if undefined
+  };
+  
+  const now = new Date();
+  
+  // Create event document
+  const event = new this({
+    userName,
     eventType: 'TIMER_RESET',
-    location: data.location || { countryCode: 'US', countryName: 'United States' },
-    trueDateTime: new Date(),
-    remainder: data.remainder || null,
-    processed: true,
-    details: data.details ? JSON.stringify(data.details) : null
+    trueDateTime: now,
+    localDateTime: now, // Will be adjusted if location provided
+    location,
+    details: JSON.stringify(eventDetails)
   });
   
-  console.log(`✅ Timer reset event logged successfully with ID: ${event._id}`);
-  return event;
+  // If location is provided, adjust local time
+  if (location && location.gmtOffset) {
+    // Parse GMT offset (could be string like '+540' or '-480')
+    const offsetMinutes = parseInt(location.gmtOffset, 10);
+    
+    // Create a date object adjusted for the user's timezone
+    // UTC + gmtOffset (in minutes)
+    const localTime = new Date(now.getTime() + (offsetMinutes * 60 * 1000));
+    event.localDateTime = localTime;
+  }
+  
+  // Save and return the event
+  return await event.save();
 };
 
 const Event = mongoose.model<IEvent, IEventModel>('Event', EventSchema);

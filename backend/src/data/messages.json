@@ -1,0 +1,32 @@
+[
+    {
+        "sequence": 1,
+        "category": "ai",
+        "message": "** TEST MESSAGE {sequence * rnd(7, 12)} ** - This is an automated test message sent at {timestamp} UTC. We're working on a Hootsuite style capability for low volume news. #automation #testing",
+        "url": "https://docs.anthropic.com/en/docs/agents-and-tools/mcp"
+    },
+    {
+        "sequence": 2,
+        "category": "economics",
+        "message": "** TEST MESSAGE {sequence * rnd(7, 12)} ** - This is an automated test message sent at {timestamp} UTC. We're working on a Hootsuite style capability for low volume news. #automation #testing",
+        "url": "https://www.scmp.com/economy/global-economy/article/3305666/brace-impact-chinese-economist-warns-gloves-are-us-trade-war?module=top_story&pgtype=section"
+    },
+    {
+        "sequence": 3,
+        "category": "quantum",
+        "message": "** TEST MESSAGE {sequence * rnd(7, 12)} ** - This is an automated test message sent at {timestamp} UTC. We're working on a Hootsuite style capability for low volume news. #automation #testing",
+        "url": "https://blog.google/technology/research/google-willow-quantum-chip/"
+    },
+    {
+        "sequence": 4,
+        "category": "development",
+        "message": "** TEST MESSAGE {sequence * rnd(7, 12)} ** - This is an automated test message sent at {timestamp} UTC. We're working on a Hootsuite style capability for low volume news. #automation #testing",
+        "url": "https://www.cursor.com/features"
+    },
+    {
+        "sequence": 5,
+        "category": "earthquakes",
+        "message": "** TEST MESSAGE {sequence * rnd(7, 12)} ** - This is an automated test message sent at {timestamp} UTC. We're working on a Hootsuite style capability for low volume news. #automation #testing",
+        "url": "https://earthquake.usgs.gov/earthquakes/map/"
+    }
+]

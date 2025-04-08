@@ -78,6 +78,20 @@ export default function DashboardPage() {
           // Check if timer has just expired
           if (timerData?.isExpired && previousExpiredState.current === false) {
             // Show toast notification for timer expiry
+            console.log('🔴 DEBUGGING: Timer has expired! Starting 5-second grace period');
+            
+            // Create a function to handle grace period expiration
+            const handleGracePeriodExpired = () => {
+              console.log('🔴 DEBUGGING: Grace period toast expired, redirecting to /message/');
+              // Only redirect if the timer is still expired
+              if (timerData?.isExpired) {
+                window.location.href = '/message';
+              }
+            };
+            
+            // Set a timeout to redirect after the grace period
+            setTimeout(handleGracePeriodExpired, 5000);
+            
             toast.error('Timer has expired! You have 5 seconds to reset before message countdown begins.', {
               duration: 5000, // 5 seconds
               icon: '⏰',
@@ -85,7 +99,7 @@ export default function DashboardPage() {
                 borderRadius: '10px',
                 background: '#333',
                 color: '#fff',
-              },
+              }
             });
           }
           

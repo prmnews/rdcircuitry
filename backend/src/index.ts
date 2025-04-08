@@ -6,6 +6,7 @@ import { connectToDatabase } from './lib/database';
 import authRoutes from './routes/auth.routes';
 import userRoutes from './routes/user.routes';
 import timerRoutes from './routes/timer.routes';
+import messageRoutes from './routes/message.routes';
 import { SocketManager } from './websocket/socket-manager';
 import { SERVER_CONFIG, validateConfig } from './config';
 
@@ -30,6 +31,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/timer', timerRoutes);
+app.use('/api/message', messageRoutes);
 
 // Basic health check route
 app.get('/api/health', (_req: Request, res: Response) => {
@@ -61,6 +63,96 @@ global.socketManager = socketManager;
 // Start server
 const PORT = parseInt(SERVER_CONFIG.PORT, 10);
 
+// Before startServer function
+// Add a task to check and process expired message timers
+function setupMessageTimerChecker() {
+  const MESSAGE_CHECK_INTERVAL = parseInt(process.env.MESSAGE_CHECK_INTERVAL_MS || '10000', 10); // Default: 10 seconds
+  
+  console.log(`📬 Setting up message timer checker to run every ${MESSAGE_CHECK_INTERVAL}ms`);
+  
+  // Process message function (internal version that doesn't require external HTTP calls)
+  const processExpiredMessageTimers = async () => {
+    try {
+      // Import models locally to avoid circular dependencies
+      const { MessageTimer, State, Event } = require('./models');
+      const { broadcastMessage } = require('./lib/message/broadcast');
+      
+      // Find active message timer
+      const messageTimer = await MessageTimer.findOne({ _id: 'message_timer', active: true });
+      
+      if (!messageTimer) {
+        return;
+      }
+      
+      // Check if timer has expired
+      const currentTime = new Date();
+      const triggerTime = new Date(messageTimer.triggerTime);
+      
+      // Skip if not expired yet
+      if (currentTime < triggerTime) {
+        return;
+      }
+      
+      console.log('🔴 DEBUGGING: Message timer has expired, processing...');
+      
+      // Log sending event
+      await Event.create({
+        userName: 'system',
+        isUserValidation: false,
+        eventType: 'MESSAGE_SENDING',
+        location: { countryCode: 'US', countryName: 'United States' },
+        trueDateTime: currentTime,
+        processed: true,
+        details: JSON.stringify(messageTimer.messageContent)
+      });
+      
+      console.log('🔴 DEBUGGING: Sending message via X.com API');
+      // Process message
+      const messageResult = await broadcastMessage(messageTimer.messageContent);
+      
+      // Update state to mark as done
+      await State.findOneAndUpdate(
+        { _id: 'timer_state' },
+        { $set: { isRDI: true, updatedAt: currentTime } }
+      );
+      
+      console.log('🔴 DEBUGGING: Updated state.isRDI to true');
+      
+      // Deactivate timer
+      await MessageTimer.findOneAndUpdate(
+        { _id: 'message_timer' },
+        { $set: { active: false, updatedAt: currentTime } }
+      );
+      
+      console.log('🔴 DEBUGGING: Deactivated message timer');
+      
+      // Log result event
+      await Event.create({
+        userName: 'system',
+        isUserValidation: false,
+        eventType: messageResult.success ? 'MESSAGE_SENT' : 'MESSAGE_FAILED',
+        location: { countryCode: 'US', countryName: 'United States' },
+        trueDateTime: currentTime,
+        processed: true,
+        details: JSON.stringify({
+          messageContent: messageTimer.messageContent,
+          result: messageResult
+        })
+      });
+      
+      console.log(`🔴 DEBUGGING: Message processed - result: ${messageResult.success ? 'SUCCESS' : 'FAILURE'}`);
+    } catch (error) {
+      console.error('Error processing message timer:', error);
+    }
+  };
+  
+  // Start the interval
+  const intervalId = setInterval(processExpiredMessageTimers, MESSAGE_CHECK_INTERVAL);
+  
+  // Return a cleanup function
+  return () => clearInterval(intervalId);
+}
+
 async function startServer(): Promise<void> {
   try {
     console.log('🚀 Starting RDCircuitry server...');
@@ -73,6 +165,9 @@ async function startServer(): Promise<void> {
     // Connect to database 
     console.log('🔌 Connecting to MongoDB...');
     await connectToDatabase();
+    
+    // Setup message timer checker
+    setupMessageTimerChecker();
     
     // Then start server
     server.listen(PORT, () => {

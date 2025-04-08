@@ -1,21 +1,15 @@
 import { useState, useEffect } from 'react';
+import { User } from '@/types';
 
-interface TimezoneData {
-  gmtOffset: string | number;
-  timeZone: string;
-  countryCode: string;
-  countryName: string;
-}
-
-interface UserTimezone {
+interface TimezoneState {
   gmtOffset: number;
   timeZone: string;
   countryCode: string;
   countryName: string;
 }
 
-export default function useTimezone(userData?: TimezoneData | null) {
-  const [userTimezone, setUserTimezone] = useState<UserTimezone>({
+export default function useTimezone(userData?: User | null) {
+  const [userTimezone, setUserTimezone] = useState<TimezoneState>({
     gmtOffset: 0,
     timeZone: 'UTC',
     countryCode: 'US',
@@ -23,14 +17,12 @@ export default function useTimezone(userData?: TimezoneData | null) {
   });
 
   useEffect(() => {
-    if (userData?.gmtOffset) {
+    if (userData?.location?.gmtOffset) {
       setUserTimezone({
-        gmtOffset: typeof userData.gmtOffset === 'string' 
-          ? parseInt(userData.gmtOffset, 10) 
-          : userData.gmtOffset,
-        timeZone: userData.timeZone || 'UTC',
-        countryCode: userData.countryCode || 'US',
-        countryName: userData.countryName || 'United States'
+        gmtOffset: parseInt(userData.location.gmtOffset, 10),
+        timeZone: userData.location.timeZone || 'UTC',
+        countryCode: userData.location.countryCode || 'US',
+        countryName: userData.location.countryName || 'United States'
       });
     }
   }, [userData]);
@@ -40,11 +32,8 @@ export default function useTimezone(userData?: TimezoneData | null) {
     if (!utcTime) return null;
     
     const date = new Date(utcTime);
-    if (isNaN(date.getTime())) return null;
-    
-    // Apply the user's GMT offset (in minutes)
-    const offsetMs = userTimezone.gmtOffset * 60 * 1000;
-    const localTime = new Date(date.getTime() + offsetMs);
+    // Apply the user's GMT offset
+    const localTime = new Date(date.getTime() + (userTimezone.gmtOffset * 60 * 1000));
     return localTime;
   };
 
@@ -53,11 +42,8 @@ export default function useTimezone(userData?: TimezoneData | null) {
     if (!localTime) return null;
     
     const date = new Date(localTime);
-    if (isNaN(date.getTime())) return null;
-    
     // Remove the user's GMT offset
-    const offsetMs = userTimezone.gmtOffset * 60 * 1000;
-    const utcTime = new Date(date.getTime() - offsetMs);
+    const utcTime = new Date(date.getTime() - (userTimezone.gmtOffset * 60 * 1000));
     return utcTime;
   };
 

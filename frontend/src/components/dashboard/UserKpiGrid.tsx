@@ -59,14 +59,14 @@ export default function UserKpiGrid() {
   };
   
   return (
-    <Card className="w-full">
+    <Card className="w-full overflow-hidden">
       <CardHeader>
         <CardTitle>User Performance</CardTitle>
         <CardDescription>
           Timer reset statistics by user
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-0 sm:p-6">
         {loading ? (
           <div className="flex justify-center items-center py-10">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -76,30 +76,32 @@ export default function UserKpiGrid() {
         ) : users.length === 0 ? (
           <div className="text-center text-muted-foreground py-6">No user data available</div>
         ) : (
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[60px]">KPI</TableHead>
-                <TableHead>User</TableHead>
-                <TableHead className="text-right">Min (min)</TableHead>
-                <TableHead className="text-right">Avg (min)</TableHead>
-                <TableHead className="text-right">Max (min)</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {users.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell>
-                    <div className={`h-3 w-3 rounded-full ${getKpiColor(user.minRemainder)}`} />
-                  </TableCell>
-                  <TableCell className="font-medium">{user.userName}</TableCell>
-                  <TableCell className="text-right">{user.minRemainder.toFixed(1)}</TableCell>
-                  <TableCell className="text-right">{user.avgRemainder.toFixed(1)}</TableCell>
-                  <TableCell className="text-right">{user.maxRemainder.toFixed(1)}</TableCell>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[60px]">KPI</TableHead>
+                  <TableHead>User</TableHead>
+                  <TableHead className="text-right">Min</TableHead>
+                  <TableHead className="text-right">Avg</TableHead>
+                  <TableHead className="text-right">Max</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {users.map((user) => (
+                  <TableRow key={user.id}>
+                    <TableCell>
+                      <div className={`h-3 w-3 rounded-full ${getKpiColor(user.minRemainder)}`} />
+                    </TableCell>
+                    <TableCell className="font-medium">{user.userName}</TableCell>
+                    <TableCell className="text-right">{user.minRemainder.toFixed(1)}</TableCell>
+                    <TableCell className="text-right">{user.avgRemainder.toFixed(1)}</TableCell>
+                    <TableCell className="text-right">{user.maxRemainder.toFixed(1)}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         )}
       </CardContent>
     </Card>

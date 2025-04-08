@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Clock } from "lucide-react";
+import { User } from '@/types';
 import useTimezone from '@/hooks/useTimezone';
-import type { User } from '@/types';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { RefreshCw } from "lucide-react";
 
 interface CurrentTimeCardProps {
-  userData?: Partial<User> | null;
+  userData?: User | null;
 }
 
 export default function CurrentTimeCard({ userData }: CurrentTimeCardProps) {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const { toLocalTime, userTimezone } = useTimezone(userData?.location);
+  const { toLocalTime, userTimezone } = useTimezone(userData);
   
   // Update time every second
   useEffect(() => {
@@ -23,7 +28,8 @@ export default function CurrentTimeCard({ userData }: CurrentTimeCardProps) {
   
   // Format the date
   const formatDate = (date: Date | null): string => {
-    if (!date) return 'N/A';
+    if (!date) return '';
+    
     return date.toLocaleDateString('en-US', {
       month: '2-digit',
       day: '2-digit',
@@ -33,40 +39,32 @@ export default function CurrentTimeCard({ userData }: CurrentTimeCardProps) {
   
   // Format the time
   const formatTime = (date: Date | null): string => {
-    if (!date) return 'N/A';
+    if (!date) return '';
+    
     return date.toLocaleTimeString('en-US', {
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
-      hour12: true
+      hour12: false
     });
   };
   
   const localTime = toLocalTime(currentTime);
   
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <div className="space-y-1">
-          <CardTitle>Current Time</CardTitle>
-          <CardDescription>
-            Based on {userData?.userName || 'your'} timezone
-          </CardDescription>
-        </div>
-        <Clock className="h-5 w-5 text-muted-foreground" />
+    <Card className="h-full">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-sm font-medium">Current Time</CardTitle>
+        <RefreshCw className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent>
-        <div className="text-center space-y-2">
-          <div className="text-3xl font-bold tracking-tighter">
-            {formatTime(localTime)}
-          </div>
-          <div className="text-sm text-muted-foreground">
-            {formatDate(localTime)}
-          </div>
-          <div className="text-xs bg-muted inline-block px-2 py-1 rounded-md">
-            {userTimezone.timeZone} (GMT{userTimezone.gmtOffset >= 0 ? '+' : ''}{userTimezone.gmtOffset})
-          </div>
-        </div>
+        <div className="text-2xl font-bold">{formatTime(localTime)}</div>
+        <p className="text-xs text-muted-foreground mt-1">
+          {formatDate(localTime)}
+        </p>
+        <p className="text-xs text-muted-foreground">
+          {userTimezone.timeZone} (GMT{userTimezone.gmtOffset >= 0 ? '+' : ''}{userTimezone.gmtOffset})
+        </p>
       </CardContent>
     </Card>
   );

@@ -1,6 +1,6 @@
 import { TimerState, User, UserKpiStats } from '@/types';
 
-const API_BASE_URL = '/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 // Get auth token from local storage
 const getToken = (): string | null => {
@@ -22,7 +22,10 @@ async function fetchWithAuth<T>(
   
   const requestOptions = {
     ...options,
-    headers: token ? { ...headers, 'x-auth-token': token } : headers,
+    headers: token ? { 
+      ...headers, 
+      'Authorization': `Bearer ${token}`
+    } : headers,
   };
   
   const response = await fetch(`${API_BASE_URL}${endpoint}`, requestOptions);

@@ -16,6 +16,7 @@ const scripts = [
   { name: 'Users', file: 'src/scripts/hydrate-users.ts' },
   { name: 'API Keys', file: 'src/scripts/hydrate-apiKeys.ts' },
   { name: 'State', file: 'src/scripts/hydrate-state.ts' },
+  { name: 'Events', file: 'src/scripts/hydrate-events.ts' },
   { name: 'Message Timer', file: 'src/scripts/hydrate-messageTimer.ts' }
 ];
 

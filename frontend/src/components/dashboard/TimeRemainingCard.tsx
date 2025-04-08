@@ -1,53 +1,42 @@
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Clock, AlertTriangle } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { AlertTriangle } from "lucide-react";
 
 interface TimeRemainingCardProps {
-  expirationTime?: string;
-  isExpired?: boolean;
-  remainingTime?: number;
+  expirationTime?: string | null;
+  initialMinutes?: number;
 }
 
 export default function TimeRemainingCard({ 
   expirationTime, 
-  isExpired = false,
-  remainingTime: initialRemainingTime 
+  initialMinutes = 5 
 }: TimeRemainingCardProps) {
   const [timeRemaining, setTimeRemaining] = useState({ hours: 0, minutes: 0, seconds: 0 });
-  const [alertLevel, setAlertLevel] = useState<'normal' | 'warning' | 'danger'>('normal');
-  const [progressValue, setProgressValue] = useState(100);
+  const [alertLevel, setAlertLevel] = useState<'normal' | 'yellow' | 'red' | 'expired'>('normal');
+  const [isExpired, setIsExpired] = useState(false);
   
   useEffect(() => {
-    if (!expirationTime && initialRemainingTime === undefined) return;
+    if (!expirationTime) return;
     
     const calculateTimeRemaining = () => {
-      // If we already know it's expired, set zeros
-      if (isExpired) {
-        setTimeRemaining({ hours: 0, minutes: 0, seconds: 0 });
-        setAlertLevel('danger');
-        setProgressValue(0);
-        return;
-      }
-      
-      let diff: number;
-      
-      // Use the provided remainingTime if available, otherwise calculate it
-      if (initialRemainingTime !== undefined) {
-        diff = initialRemainingTime;
-      } else {
-        const now = new Date();
-        const expiration = new Date(expirationTime || '');
-        diff = expiration.getTime() - now.getTime();
-      }
+      const now = new Date();
+      const expiration = new Date(expirationTime);
+      const diff = expiration.getTime() - now.getTime();
       
       // If timer has expired
       if (diff <= 0) {
         setTimeRemaining({ hours: 0, minutes: 0, seconds: 0 });
-        setAlertLevel('danger');
-        setProgressValue(0);
+        setAlertLevel('expired');
+        setIsExpired(true);
         return;
       }
+      
+      setIsExpired(false);
       
       // Calculate hours, minutes, seconds
       const hours = Math.floor(diff / (1000 * 60 * 60));
@@ -56,66 +45,61 @@ export default function TimeRemainingCard({
       
       setTimeRemaining({ hours, minutes, seconds });
       
-      // Calculate total minutes remaining for alert level
+      // Set alert levels based on env variables
       const totalMinutesRemaining = hours * 60 + minutes + seconds / 60;
+      const redMinutes = Number(process.env.NEXT_PUBLIC_MESSAGE_RED_MINUTES || 1);
+      const yellowMinutes = Number(process.env.NEXT_PUBLIC_MESSAGE_YELLOW_MINUTES || 2);
       
-      // Set alert level based on time remaining
-      const lowMinutes = parseInt(process.env.NEXT_PUBLIC_KPI_LOW_MINUTES || '1');
-      const avgMinutes = parseInt(process.env.NEXT_PUBLIC_KPI_AVERAGE_MINUTES || '2');
-      
-      if (totalMinutesRemaining <= lowMinutes) {
-        setAlertLevel('danger');
-      } else if (totalMinutesRemaining <= avgMinutes) {
-        setAlertLevel('warning');
+      if (totalMinutesRemaining <= redMinutes) {
+        setAlertLevel('red');
+      } else if (totalMinutesRemaining <= yellowMinutes) {
+        setAlertLevel('yellow');
       } else {
         setAlertLevel('normal');
       }
-      
-      // Calculate progress value (0-100)
-      const maxTime = 10 * 60 * 1000; // 10 minutes in ms
-      setProgressValue(Math.min(100, Math.max(0, (diff / maxTime) * 100)));
     };
     
     calculateTimeRemaining();
     const interval = setInterval(calculateTimeRemaining, 1000);
     
     return () => clearInterval(interval);
-  }, [expirationTime, initialRemainingTime, isExpired]);
+  }, [expirationTime]);
   
-  // Format the time with padded zeros
+  // Format the time remaining display
   const formatTimeDisplay = (): string => {
     const { hours, minutes, seconds } = timeRemaining;
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
   
+  // Get background color based on alert level
+  const getBackgroundColor = (): string => {
+    if (alertLevel === 'expired') return 'bg-red-100';
+    if (alertLevel === 'red') return 'bg-red-50';
+    if (alertLevel === 'yellow') return 'bg-amber-50';
+    return '';
+  };
+  
+  // Get text color based on alert level
+  const getTextColor = (): string => {
+    if (alertLevel === 'expired') return 'text-red-700';
+    if (alertLevel === 'red') return 'text-red-500';
+    if (alertLevel === 'yellow') return 'text-amber-500';
+    return '';
+  };
+  
   return (
-    <Card>
-      <CardHeader className={`flex flex-row items-center justify-between pb-2 ${alertLevel === 'danger' ? 'text-red-500' : ''}`}>
-        <div className="space-y-1">
-          <CardTitle>Time Remaining</CardTitle>
-          <CardDescription>
-            Until timer expiration
-          </CardDescription>
-        </div>
-        {alertLevel === 'danger' ? (
-          <AlertTriangle className="h-5 w-5 text-red-500" />
-        ) : (
-          <Clock className="h-5 w-5 text-muted-foreground" />
-        )}
+    <Card className={`h-full ${getBackgroundColor()}`}>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-sm font-medium">Time Remaining</CardTitle>
+        <AlertTriangle className={`h-4 w-4 ${getTextColor()} ${isExpired ? 'animate-pulse' : ''}`} />
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className={`text-4xl font-bold tracking-tighter text-center py-4 ${alertLevel === 'danger' ? 'text-red-500 animate-pulse' : ''}`}>
-          {formatTimeDisplay()}
+      <CardContent>
+        <div className={`text-2xl font-bold ${getTextColor()} ${isExpired ? 'animate-pulse' : ''}`}>
+          {isExpired ? "EXPIRED" : formatTimeDisplay()}
         </div>
-        
-        <Progress 
-          value={progressValue} 
-          className="h-2"
-        />
-        
-        <div className="text-xs text-center text-muted-foreground">
-          {isExpired ? 'Timer has expired!' : 'Countdown to expiration'}
-        </div>
+        <p className="text-xs text-muted-foreground mt-1">
+          {isExpired ? "Please reset timer" : "Current countdown"}
+        </p>
       </CardContent>
     </Card>
   );

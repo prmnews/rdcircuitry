@@ -37,7 +37,7 @@ export default function useWebSocket({
 
   useEffect(() => {
     // Create socket connection
-    const wsUrl = process.env.NEXT_PUBLIC_WS_URL || 'http://localhost:3001';
+    const wsUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4000';
     const socketInstance = io(wsUrl);
     
     socketInstance.on('connect', () => {

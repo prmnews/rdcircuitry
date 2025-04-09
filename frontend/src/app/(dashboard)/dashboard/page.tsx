@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import UserKpiGrid from "@/components/dashboard/UserKpiGrid";
 import CurrentTimeCard from "@/components/dashboard/CurrentTimeCard";
 import EstimatedExpirationCard from "@/components/dashboard/EstimatedExpirationCard";
@@ -19,6 +20,7 @@ const DEFAULT_POLLING_INTERVAL = 30000; // 30 seconds
 const DEFAULT_HEALTH_BUFFER = 15000; // 15 seconds buffer
 
 export default function DashboardPage() {
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [timerState, setTimerState] = useState<TimerState | null>(null);
   const [loading, setLoading] = useState(true);
@@ -78,6 +80,13 @@ export default function DashboardPage() {
           setLastDataUpdate(Date.now());
           setDataConnectionHealthy(true);
           
+          // Check for isRDI state - immediate redirect
+          if (timerData.isRDI) {
+            console.log('🔴 DEBUGGING: isRDI is true, redirecting to /message/');
+            router.push('/message');
+            return;
+          }
+          
           // Check if timer has just expired
           if (timerData?.isExpired && previousExpiredState.current === false) {
             // Show toast notification for timer expiry
@@ -88,7 +97,7 @@ export default function DashboardPage() {
               console.log('🔴 DEBUGGING: Grace period toast expired, redirecting to /message/');
               // Only redirect if the timer is still expired
               if (timerData?.isExpired) {
-                window.location.href = '/message';
+                router.push('/message');
               }
             };
             
@@ -167,7 +176,7 @@ export default function DashboardPage() {
         setLoading(false);
       }
     }
-  }, [dataConnectionHealthy]);
+  }, [dataConnectionHealthy, router]);
 
   // Check data freshness periodically
   useEffect(() => {

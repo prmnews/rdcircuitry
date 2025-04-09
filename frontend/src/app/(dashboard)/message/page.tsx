@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
-import { messageApi } from '@/services/api';
+import { messageApi, timerApi } from '@/services/api';
 import { formatDateTime } from '@/lib/utils';
 
 export default function MessageBroadcastPage() {
@@ -21,6 +21,19 @@ export default function MessageBroadcastPage() {
   const [messageContent, setMessageContent] = useState<string>('');
   const [statusMessage, setStatusMessage] = useState('No further action possible. This application has successfully managed the isRDI state to a true condition.');
   const [initialLoadDone, setInitialLoadDone] = useState(false);
+  const [isRDI, setIsRDI] = useState(false);
+  
+  // Add function to check RDI state
+  const checkRDIState = async () => {
+    try {
+      const timerState = await timerApi.getTimerState();
+      setIsRDI(timerState.isRDI || false);
+      return timerState.isRDI || false;
+    } catch (error) {
+      console.error('Error checking RDI state:', error);
+      return false;
+    }
+  };
   
   const startMessageTimer = async () => {
     try {
@@ -63,6 +76,9 @@ export default function MessageBroadcastPage() {
       const response = await messageApi.getMessageStatus();
       console.log('🔴 DEBUGGING: Message status response:', response);
       
+      // Also check RDI state
+      const isRDIState = await checkRDIState();
+      
       if (response.connectionError) {
         setError('Connection to server failed. Please try again later.');
         return;
@@ -97,8 +113,9 @@ export default function MessageBroadcastPage() {
           // Display both text and URL in the textarea
           setMessageContent(messageUrl ? `${messageText}\n\nURL: ${messageUrl}` : messageText);
         }
-      } else if (!initialLoadDone) {
+      } else if (!initialLoadDone && !isRDIState) {
         // First time loading and no active timer - try to start one
+        // Only start timer if isRDI is not true
         console.log('🔴 DEBUGGING: No active timer found, starting a new one');
         await startMessageTimer();
         setInitialLoadDone(true);
@@ -141,7 +158,10 @@ export default function MessageBroadcastPage() {
 
   // Return to dashboard
   const handleBackToDashboard = () => {
-    router.push('/dashboard');
+    // Only allow navigation if isRDI is false
+    if (!isRDI) {
+      router.push('/dashboard');
+    }
   };
 
   if (isLoading || loading) {
@@ -165,11 +185,24 @@ export default function MessageBroadcastPage() {
     <div className="container mx-auto py-8">
       <Card className="max-w-2xl mx-auto">
         <CardHeader>
-          <CardTitle className="text-xl font-bold">Message Broadcast Status</CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-xl font-bold">Message Broadcast Status</CardTitle>
+            {!isRDI && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleBackToDashboard}
+                className="flex items-center gap-1"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back to Dashboard
+              </Button>
+            )}
+          </div>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Status Message */}
-          <div className={`p-3 rounded-md ${timerActive ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-amber-50 text-amber-700 border border-amber-200'}`}>
+          <div className={`p-3 rounded-md ${isRDI ? 'bg-red-50 text-red-700 border border-red-200' : timerActive ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-amber-50 text-amber-700 border border-amber-200'}`}>
             {statusMessage}
           </div>
           

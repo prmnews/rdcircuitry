@@ -19,7 +19,7 @@ export default function MessageBroadcastPage() {
   const [triggerTime, setTriggerTime] = useState<string>('');
   const [remainingTime, setRemainingTime] = useState<string>('00:00:00');
   const [messageContent, setMessageContent] = useState<string>('');
-  const [statusMessage, setStatusMessage] = useState('No active timer. The backend may still be initializing the timer.');
+  const [statusMessage, setStatusMessage] = useState('No further action possible. This application has successfully managed the isRDI state to a true condition.');
   const [initialLoadDone, setInitialLoadDone] = useState(false);
   
   const startMessageTimer = async () => {
@@ -190,7 +190,7 @@ export default function MessageBroadcastPage() {
             </div>
             <div>
               <div className="text-sm font-medium mb-1 text-gray-500">Time Remaining:</div>
-              <div className="p-2 bg-gray-100 rounded text-gray-900 font-mono">
+              <div className="p-2 bg-red-100 rounded text-gray-900 font-mono">
                 {remainingTime}
               </div>
             </div>
@@ -204,19 +204,6 @@ export default function MessageBroadcastPage() {
               readOnly
               className="h-24 font-mono resize-none"
             />
-          </div>
-          
-          {/* Back to Dashboard */}
-          <div className="pt-4">
-            <Button
-              onClick={handleBackToDashboard}
-              variant="outline"
-              className="flex items-center gap-2"
-              disabled={!timerActive && remainingTime === '00:00:00'}
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Back to Dashboard
-            </Button>
           </div>
         </CardContent>
       </Card>

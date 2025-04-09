@@ -6,6 +6,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  CardDescription,
 } from "@/components/ui/card";
 import { RefreshCw } from "lucide-react";
 
@@ -27,25 +28,27 @@ export default function CurrentTimeCard({ userData }: CurrentTimeCardProps) {
   }, []);
   
   // Format the date
-  const formatDate = (date: Date | null): string => {
+  const formatDate = (date: Date | null, timezone?: string): string => {
     if (!date) return '';
     
     return date.toLocaleDateString('en-US', {
       month: '2-digit',
       day: '2-digit',
-      year: 'numeric'
+      year: 'numeric',
+      timeZone: timezone
     });
   };
   
   // Format the time
-  const formatTime = (date: Date | null): string => {
+  const formatTime = (date: Date | null, timezone?: string): string => {
     if (!date) return '';
     
     return date.toLocaleTimeString('en-US', {
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
-      hour12: false
+      hour12: false,
+      timeZone: timezone
     });
   };
   
@@ -65,6 +68,14 @@ export default function CurrentTimeCard({ userData }: CurrentTimeCardProps) {
         <p className="text-xs text-muted-foreground">
           {userTimezone.timeZone} (GMT{userTimezone.gmtOffset >= 0 ? '+' : ''}{userTimezone.gmtOffset})
         </p>
+        
+        <div className="mt-3 pt-2 border-t border-gray-200 dark:border-gray-700">
+          <p className="text-sm font-medium text-muted-foreground">UTC Time</p>
+          <div className="text-base">{formatTime(currentTime, 'UTC')}</div>
+          <p className="text-xs text-muted-foreground">
+            {formatDate(currentTime, 'UTC')}
+          </p>
+        </div>
       </CardContent>
     </Card>
   );

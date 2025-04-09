@@ -46,6 +46,7 @@ export default function DashboardPage() {
       let userData;
       try {
         userData = await authApi.getCurrentUser();
+
         // Check for network connectivity issues
         if (userData.connectionError) {
           hasConnectionError = true;
@@ -53,6 +54,8 @@ export default function DashboardPage() {
         // Otherwise process user data normally
         else if (userData.success !== false && userData.user) {
           setUser(userData.user);
+          console.log('User data:', userData);
+          console.log('User location:', userData?.user?.location);
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -302,8 +305,8 @@ export default function DashboardPage() {
       <div className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">User Analysis Dashboard</h1>
         <p className="text-muted-foreground">
-          {timerState?.location?.countryName ? 
-            `${timerState.location.countryName} - ${timerState.location.gmtOffset}` : 
+          {user?.location?.timeZone ? 
+            `${user.location.timeZone} | GMT ${(Number(user.location.gmtOffset) >= 0 ? '+' : '')}${user.location.gmtOffset}` : 
             'Loading location data...'}
         </p>
       </div>

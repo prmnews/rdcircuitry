@@ -121,9 +121,6 @@ async function updateState(): Promise<void> {
         process.exit(1);
       }
       
-      // Reset RDI status?
-      const resetRdiInput = await promptForInput('Reset RDI status to false? (y/n): ');
-      resetRdi = resetRdiInput.toLowerCase() === 'y';
     }
     
     // Calculate new expiration time
@@ -132,12 +129,9 @@ async function updateState(): Promise<void> {
     // Update state
     const updateData: any = {
       currentState: newExpiryTime,
+      isRDI: false,
       updatedAt: now
     };
-    
-    if (resetRdi) {
-      updateData.isRDI = false;
-    }
     
     const updatedState = await State.findOneAndUpdate(
       { _id: 'timer_state' },

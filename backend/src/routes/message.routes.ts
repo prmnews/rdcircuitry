@@ -363,7 +363,7 @@ router.get('/status', async (req: Request, res: Response): Promise<void> => {
       res.json({
         success: true,
         timerActive: false,
-        message: 'No active timer. The backend may still be initializing the timer.'
+        message: 'No further action possible. This application has successfuly managed the isRDI state to a true condition.'
       });
       return;
     }

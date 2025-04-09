@@ -213,4 +213,18 @@ export class AuthService {
       { expiresIn: '7d' }
     );
   }
+
+  /**
+   * Get complete user data by ID
+   */
+  static async getCurrentUser(userId: string): Promise<IUser | null> {
+    try {
+      console.log(`🔍 Fetching user data for ID: ${userId}`);
+      const user = await User.findById(userId);
+      return user;
+    } catch (error) {
+      console.error('❌ Error fetching user data:', error);
+      return null;
+    }
+  }
 } 

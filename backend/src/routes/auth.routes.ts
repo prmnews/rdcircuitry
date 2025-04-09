@@ -130,12 +130,40 @@ router.post('/api-key', async (req, res) => {
  * @access Private
  */
 // @ts-ignore - Express typings issue
-router.get('/me', authenticateToken, (req, res) => {
+router.get('/me', authenticateToken, async (req, res) => {
   try {
-    // User is attached to request by authenticateToken middleware
-    const user = req.user;
-    console.log(`📋 User profile requested for: ${user?.userName}`);
-    res.status(200).json({ success: true, user });
+    // User basic info is attached to request by authenticateToken middleware
+    const userId = req.user?._id;
+    console.log(`📋 User profile requested for ID: ${userId}`);
+    
+    if (!userId) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'User not found' 
+      });
+    }
+    
+    // Fetch complete user data from database
+    const user = await AuthService.getCurrentUser(userId);
+    
+    if (!user) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'User not found' 
+      });
+    }
+    
+    // Return full user object
+    res.status(200).json({ 
+      success: true, 
+      user: {
+        id: user._id,
+        userName: user.userName,
+        role: user.role,
+        location: user.location,
+        lastLogin: user.lastLogin
+      } 
+    });
   } catch (error) {
     console.error('❌ Get user route error:', error);
     res.status(500).json({ 

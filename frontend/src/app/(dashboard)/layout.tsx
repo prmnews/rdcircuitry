@@ -59,18 +59,18 @@ export default function DashboardLayout({
               </li>
               <li>
                 <a 
-                  href="/dashboard/users" 
+                  href="/profile" 
                   className="flex items-center px-4 py-2 text-gray-700 rounded-md hover:bg-gray-100"
                 >
-                  User Management
+                  User Profile
                 </a>
               </li>
               <li>
                 <a 
-                  href="/dashboard/settings" 
+                  href="/logout" 
                   className="flex items-center px-4 py-2 text-gray-700 rounded-md hover:bg-gray-100"
                 >
-                  Settings
+                  Logout
                 </a>
               </li>
             </ul>

@@ -90,7 +90,6 @@ router.post('/start', protect, async (req: AuthRequest, res: Response): Promise<
     
     // Check if MESSAGE_ENABLE is true
     if (process.env.MESSAGE_ENABLE !== 'true') {
-      console.log('🔴 DEBUGGING: Message feature is disabled in environment');
       res.status(400).json({ 
         success: false,
         message: 'Message feature is disabled in environment configuration' 
@@ -102,7 +101,6 @@ router.post('/start', protect, async (req: AuthRequest, res: Response): Promise<
     const state = await State.findOne({ _id: 'timer_state' });
     
     if (!state) {
-      console.log('🔴 DEBUGGING: Timer state not found');
       res.status(404).json({ 
         success: false,
         message: 'Timer state not found' 
@@ -115,10 +113,7 @@ router.post('/start', protect, async (req: AuthRequest, res: Response): Promise<
     const timerState = new Date(state.currentState);
     const isExpired = timerState <= currentTime;
     
-    console.log(`🔴 DEBUGGING: Timer state - Current time: ${currentTime.toISOString()}, Timer state time: ${timerState.toISOString()}, Is expired: ${isExpired}`);
-    
     if (!isExpired) {
-      console.log('🔴 DEBUGGING: Timer is not expired, cannot start message timer');
       res.status(400).json({ 
         success: false,
         message: 'Cannot start message timer when main timer is not expired' 
@@ -127,7 +122,6 @@ router.post('/start', protect, async (req: AuthRequest, res: Response): Promise<
     }
     
     if (state.isRDI) {
-      console.log('🔴 DEBUGGING: Message already sent for this timer cycle (isRDI=true)');
       res.status(400).json({ 
         success: false,
         message: 'Message has already been sent for this timer cycle' 
@@ -140,8 +134,6 @@ router.post('/start', protect, async (req: AuthRequest, res: Response): Promise<
     if (existingTimer) {
       const triggerTime = new Date(existingTimer.triggerTime);
       const remainingMs = Math.max(0, triggerTime.getTime() - currentTime.getTime());
-      
-      console.log(`🔴 DEBUGGING: Message timer already active, trigger time: ${triggerTime.toISOString()}, remaining: ${remainingMs}ms`);
       
       res.json({
         success: true,
@@ -160,14 +152,7 @@ router.post('/start', protect, async (req: AuthRequest, res: Response): Promise<
     const lagTimeMs = lagTimeMinutes * 60 * 1000;
     const triggerTime = new Date(currentTime.getTime() + lagTimeMs);
     
-    console.log(`🔴 DEBUGGING: Starting lag timer of ${lagTimeMinutes} minutes (${lagTimeMs}ms)`);
-    console.log(`🔴 DEBUGGING: Trigger time will be: ${triggerTime.toISOString()}`);
-    
-    // Construct message
-    console.log('🔴 DEBUGGING: Constructing message content');
     const messageContent = constructMessage();
-    
-    console.log('🔴 DEBUGGING: Creating/updating message timer in database');
     
     // Create message timer using findOneAndUpdate for DocumentDB compatibility
     const messageTimer = await MessageTimer.findOneAndUpdate(
@@ -184,15 +169,12 @@ router.post('/start', protect, async (req: AuthRequest, res: Response): Promise<
     );
     
     if (!messageTimer) {
-      console.log('🔴 DEBUGGING: Failed to create message timer');
       res.status(500).json({ 
         success: false,
         message: 'Failed to create message timer' 
       });
       return;
     }
-    
-    console.log(`🔴 DEBUGGING: Message timer created successfully with ID: ${messageTimer._id}`);
     
     // Log event
     await Event.create({
@@ -208,8 +190,6 @@ router.post('/start', protect, async (req: AuthRequest, res: Response): Promise<
       })
     });
     
-    console.log('🔴 DEBUGGING: Created MESSAGE_SCHEDULED event in database');
-    
     // Return response
     res.json({
       success: true,
@@ -221,7 +201,6 @@ router.post('/start', protect, async (req: AuthRequest, res: Response): Promise<
       }
     });
   } catch (error) {
-    console.error('🔴 DEBUGGING: Error in /message/start:', error);
     res.status(500).json({ 
       success: false,
       message: 'Failed to start message timer' 
@@ -232,12 +211,10 @@ router.post('/start', protect, async (req: AuthRequest, res: Response): Promise<
 // Process message (for scheduled jobs)
 router.post('/process', async (req: Request, res: Response): Promise<void> => {
   try {
-    console.log('🔴 DEBUGGING: /message/process endpoint called');
     
     // Validate webhook secret
     const secretToken = req.header('x-webhook-secret');
     if (secretToken !== process.env.MESSAGE_WEBHOOK_SECRET) {
-      console.log('🔴 DEBUGGING: Invalid webhook secret');
       res.status(401).json({ 
         success: false,
         message: 'Unauthorized' 
@@ -249,7 +226,6 @@ router.post('/process', async (req: Request, res: Response): Promise<void> => {
     const messageTimer = await MessageTimer.findOne({ _id: 'message_timer', active: true });
     
     if (!messageTimer) {
-      console.log('🔴 DEBUGGING: No active message timer found');
       res.json({
         success: true,
         message: 'No active message timer to process',
@@ -262,11 +238,8 @@ router.post('/process', async (req: Request, res: Response): Promise<void> => {
     const currentTime = new Date();
     const triggerTime = new Date(messageTimer.triggerTime);
     
-    console.log(`🔴 DEBUGGING: Checking if timer expired - Current time: ${currentTime.toISOString()}, Trigger time: ${triggerTime.toISOString()}`);
-    
     if (currentTime < triggerTime) {
       const remainingTime = triggerTime.getTime() - currentTime.getTime();
-      console.log(`🔴 DEBUGGING: Message timer not yet expired, remaining: ${remainingTime}ms`);
       res.json({
         success: true,
         message: 'Message timer not yet expired',
@@ -275,8 +248,6 @@ router.post('/process', async (req: Request, res: Response): Promise<void> => {
       });
       return;
     }
-    
-    console.log('🔴 DEBUGGING: Message timer has expired, proceeding with broadcast');
     
     // Log sending event
     await Event.create({
@@ -289,13 +260,9 @@ router.post('/process', async (req: Request, res: Response): Promise<void> => {
       details: JSON.stringify(messageTimer.messageContent)
     });
     
-    console.log('🔴 DEBUGGING: Created MESSAGE_SENDING event in database');
-    
     // Process message
-    console.log('🔴 DEBUGGING: Calling broadcastMessage function');
     const messageResult = await broadcastMessage(messageTimer.messageContent);
     
-    console.log(`🔴 DEBUGGING: Broadcast result: ${messageResult.success ? 'SUCCESS' : 'FAILURE'}`);
     if (messageResult.tweetId) {
       console.log(`🔴 DEBUGGING: Tweet ID: ${messageResult.tweetId}`);
     }
@@ -309,15 +276,11 @@ router.post('/process', async (req: Request, res: Response): Promise<void> => {
       { $set: { isRDI: true, updatedAt: currentTime } }
     );
     
-    console.log('🔴 DEBUGGING: Updated state.isRDI to true');
-    
     // Deactivate timer
     await MessageTimer.findOneAndUpdate(
       { _id: 'message_timer' },
       { $set: { active: false, updatedAt: currentTime } }
     );
-    
-    console.log('🔴 DEBUGGING: Deactivated message timer');
     
     // Log result event
     await Event.create({
@@ -333,8 +296,6 @@ router.post('/process', async (req: Request, res: Response): Promise<void> => {
       })
     });
     
-    console.log(`🔴 DEBUGGING: Created ${messageResult.success ? 'MESSAGE_SENT' : 'MESSAGE_FAILED'} event in database`);
-    
     // Return response
     res.json({
       success: true,
@@ -343,7 +304,6 @@ router.post('/process', async (req: Request, res: Response): Promise<void> => {
     });
     return;
   } catch (error) {
-    console.error('🔴 DEBUGGING: Error in /message/process:', error);
     res.status(500).json({ 
       success: false,
       message: 'Failed to process message timer' 
@@ -354,12 +314,9 @@ router.post('/process', async (req: Request, res: Response): Promise<void> => {
 // Get current message timer status
 router.get('/status', async (req: Request, res: Response): Promise<void> => {
   try {
-    console.log('🔴 DEBUGGING: /message/status endpoint called');
-    
     const messageTimer = await MessageTimer.findOne({ _id: 'message_timer', active: true });
     
     if (!messageTimer) {
-      console.log('🔴 DEBUGGING: No active message timer found');
       res.json({
         success: true,
         timerActive: false,
@@ -377,9 +334,6 @@ router.get('/status', async (req: Request, res: Response): Promise<void> => {
     const seconds = remainingSeconds % 60;
     const formattedRemaining = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     
-    console.log(`🔴 DEBUGGING: Found active message timer, trigger time: ${triggerTime.toISOString()}`);
-    console.log(`🔴 DEBUGGING: Remaining time: ${remainingMs}ms (${formattedRemaining})`);
-    
     res.json({
       success: true,
       timerActive: true,
@@ -393,7 +347,6 @@ router.get('/status', async (req: Request, res: Response): Promise<void> => {
     });
     return;
   } catch (error) {
-    console.error('🔴 DEBUGGING: Error in /message/status:', error);
     res.status(500).json({ 
       success: false,
       message: 'Failed to get message timer status' 

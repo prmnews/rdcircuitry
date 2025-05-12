@@ -9,16 +9,18 @@ import { AlertTriangle } from "lucide-react";
 
 interface TimeRemainingCardProps {
   expirationTime?: string | null;
-  initialMinutes?: number;
+  isExpired?: boolean;
+  remainingTime?: number;
 }
 
 export default function TimeRemainingCard({ 
   expirationTime, 
-  initialMinutes = 5 
+  isExpired: propIsExpired,
+  remainingTime
 }: TimeRemainingCardProps) {
   const [timeRemaining, setTimeRemaining] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [alertLevel, setAlertLevel] = useState<'normal' | 'yellow' | 'red' | 'expired'>('normal');
-  const [isExpired, setIsExpired] = useState(false);
+  const [isExpired, setIsExpired] = useState(propIsExpired || false);
   
   useEffect(() => {
     if (!expirationTime) return;
@@ -64,6 +66,40 @@ export default function TimeRemainingCard({
     
     return () => clearInterval(interval);
   }, [expirationTime]);
+
+  // Update isExpired when prop changes
+  useEffect(() => {
+    if (propIsExpired !== undefined) {
+      setIsExpired(propIsExpired);
+      if (propIsExpired) {
+        setAlertLevel('expired');
+      }
+    }
+  }, [propIsExpired]);
+  
+  // Update time remaining from prop if available
+  useEffect(() => {
+    if (remainingTime !== undefined && remainingTime > 0) {
+      const hours = Math.floor(remainingTime / (1000 * 60 * 60));
+      const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+      
+      setTimeRemaining({ hours, minutes, seconds });
+      
+      // Set alert levels based on env variables
+      const totalMinutesRemaining = hours * 60 + minutes + seconds / 60;
+      const redMinutes = Number(process.env.NEXT_PUBLIC_MESSAGE_RED_MINUTES || 1);
+      const yellowMinutes = Number(process.env.NEXT_PUBLIC_MESSAGE_YELLOW_MINUTES || 2);
+      
+      if (totalMinutesRemaining <= redMinutes) {
+        setAlertLevel('red');
+      } else if (totalMinutesRemaining <= yellowMinutes) {
+        setAlertLevel('yellow');
+      } else {
+        setAlertLevel('normal');
+      }
+    }
+  }, [remainingTime]);
   
   // Format the time remaining display
   const formatTimeDisplay = (): string => {

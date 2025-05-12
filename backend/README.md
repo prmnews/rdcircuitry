@@ -82,15 +82,19 @@ The timer state can be updated using the update-state script:
 
 ```bash
 # Update timer with default values (3 minutes)
+cd backend
 pnpm update:state
 
 # Update timer with specific minutes
+cd backend
 pnpm update:state 10
 
 # Reset RDI flag
+cd backend
 pnpm update:state --reset-rdi
 
 # Use interactive mode
+cd backend
 pnpm update:state --interactive
 ```
 

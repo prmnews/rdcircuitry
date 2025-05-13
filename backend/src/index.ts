@@ -9,6 +9,17 @@ import timerRoutes from './routes/timer.routes';
 import messageRoutes from './routes/message.routes';
 import { SocketManager } from './websocket/socket-manager';
 import { SERVER_CONFIG, validateConfig } from './config';
+import { MessageTimer, State, Event } from './models';
+import { broadcastMessage } from './lib/message/broadcast';
+
+// Define the broadcast result interface
+interface BroadcastResult {
+  success: boolean;
+  tweetId?: string;
+  error?: string;
+  createdAt: Date;
+  mock?: boolean;
+}
 
 // Import models to ensure they're registered with Mongoose
 import './models';
@@ -19,7 +30,14 @@ const server = http.createServer(app);
 
 // Middleware
 app.use(cors({
-  origin: [SERVER_CONFIG.FRONTEND_URL, 'http://localhost:3000', 'http://localhost:3001'],
+  origin: [SERVER_CONFIG.FRONTEND_URL, 
+    'http://localhost:3000', 
+    'http://localhost:3001',
+    'https://*.replit.app',
+    'https://*.repl.co',
+    'http://34.83.203.60',
+    'https://34.83.203.60'
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -73,10 +91,6 @@ function setupMessageTimerChecker() {
   // Process message function (internal version that doesn't require external HTTP calls)
   const processExpiredMessageTimers = async () => {
     try {
-      // Import models locally to avoid circular dependencies
-      const { MessageTimer, State, Event } = require('./models');
-      const { broadcastMessage } = require('./lib/message/broadcast');
-      
       // Find active message timer
       const messageTimer = await MessageTimer.findOne({ _id: 'message_timer', active: true });
       
@@ -108,7 +122,7 @@ function setupMessageTimerChecker() {
       
       console.log('🔴 DEBUGGING: Sending message via X.com API');
       // Process message
-      const messageResult = await broadcastMessage(messageTimer.messageContent);
+      const messageResult = await broadcastMessage(messageTimer.messageContent) as BroadcastResult;
       
       // Update state to mark as done
       await State.findOneAndUpdate(

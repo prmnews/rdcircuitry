@@ -27,6 +27,7 @@ import './models';
 // Create Express app
 const app = express();
 const server = http.createServer(app);
+const websocketHttpServer = http.createServer(); // Create a dedicated server for WebSockets
 
 // Middleware
 app.use(cors({
@@ -57,7 +58,7 @@ app.get('/api/health', (_req: Request, res: Response) => {
 });
 
 // WebSocket server
-const io = new Server(server, {
+const io = new Server(websocketHttpServer, { // Attach Socket.IO to the dedicated WebSocket server
   cors: {
     origin: [SERVER_CONFIG.FRONTEND_URL, 'http://localhost:3000', 'http://localhost:3001'],
     methods: ['GET', 'POST'],
@@ -80,6 +81,7 @@ global.socketManager = socketManager;
 
 // Start server
 const PORT = parseInt(SERVER_CONFIG.PORT, 10);
+const WEBSOCKET_PORT = parseInt(SERVER_CONFIG.WEBSOCKET_PORT, 10);
 
 // Before startServer function
 // Add a task to check and process expired message timers
@@ -185,9 +187,14 @@ async function startServer(): Promise<void> {
     
     // Then start server
     server.listen(PORT, () => {
-      console.log(`✅ Server running on port ${PORT} in ${SERVER_CONFIG.NODE_ENV} mode`);
+      console.log(`✅ API Server running on port ${PORT} in ${SERVER_CONFIG.NODE_ENV} mode`);
       console.log(`🔗 Frontend URL: ${SERVER_CONFIG.FRONTEND_URL}`);
-      console.log('🌐 Ready to accept connections');
+      console.log('🌐 API Ready to accept connections');
+    });
+
+    websocketHttpServer.listen(WEBSOCKET_PORT, () => {
+      console.log(`✅ WebSocket Server running on port ${WEBSOCKET_PORT}`);
+      console.log('🌐 WebSocket Ready to accept connections');
     });
   } catch (error) {
     console.error('❌ Failed to start server:', error);

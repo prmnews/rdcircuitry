@@ -53,6 +53,39 @@ pnpm dev:backend
 pnpm dev:frontend
 ```
 
+## Docker Support
+
+This project supports containerization with Docker for consistent deployment across environments.
+
+### Docker-related Files
+
+- `docker-compose.yml` - Defines and configures the multi-container application with frontend and backend services.
+- `frontend.Dockerfile` - Builds the Next.js frontend in a multi-stage process for optimized production deployment.
+- `backend.Dockerfile` - Builds the Express backend with MongoDB tools support for ETL operations.
+- `docker-build.sh` - Helper script that cleans and builds Docker containers.
+- `.dockerignore` - Specifies files and directories to exclude from Docker builds.
+
+### Docker Commands
+
+```bash
+# Build the Docker containers
+./docker-build.sh
+# Or manually with docker-compose
+docker-compose build
+
+# Start the application (in detached mode)
+docker-compose up -d
+
+# View container logs
+docker-compose logs -f
+
+# Stop the application
+docker-compose down
+
+# Rebuild and restart a specific service
+docker-compose up -d --build backend
+```
+
 ## Environment Setup
 
 Both backend and frontend components require environment variables for proper configuration.
@@ -64,3 +97,4 @@ See [backend/README.md](./backend/README.md) for backend environment setup.
 ### Frontend
 
 See [frontend/README.md](./frontend/README.md) for frontend environment setup. 
+

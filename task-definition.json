@@ -1,0 +1,167 @@
+{
+  "family": "rdcircuitry",
+  "networkMode": "awsvpc",
+  "executionRoleArn": "arn:aws:iam::026090556714:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "frontend",
+      "image": "026090556714.dkr.ecr.us-west-2.amazonaws.com/rdcircuitry-frontend:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "NEXT_PUBLIC_API_URL",
+          "value": "https://awslocal:4000/api"
+        },
+        {
+          "name": "NEXT_PUBLIC_SOCKET_URL",
+          "value": "http://awslocal:3001"
+        },
+        {
+          "name": "NEXTAUTH_URL",
+          "value": "http://awslocal:3000"
+        },
+        {
+          "name": "NEXTAUTH_SECRET",
+          "value": "#LGC4ad!$2u@u&Qp&z^tABYmOX!r5US8bK&MCpNA8D5alTRfHw6ek2NlsePJ*U5LeIsd5JVDBhUkBk6WQx!@laazm1YRWn1v"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/rdcircuitry",
+          "awslogs-region": "us-west-2",
+          "awslogs-stream-prefix": "frontend"
+        }
+      }
+    },
+    {
+      "name": "backend",
+      "image": "026090556714.dkr.ecr.us-west-2.amazonaws.com/rdcircuitry-backend:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 4000,
+          "hostPort": 4000,
+          "protocol": "tcp"
+        },
+        {
+          "containerPort": 3001,
+          "hostPort": 3001,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "PORT",
+          "value": "4000"
+        },
+        {
+          "name": "MONGODB_URI",
+          "value": "mongodb+srv://kmxiaaw7gxy3jedt:PNZhs5UbiV6S06LI@rdi-cluster.gmmeuph.mongodb.net/"
+        },
+        {
+          "name": "MONGODB_DB",
+          "value": "rdcircuitry"
+        },
+        {
+          "name": "ENCRYPTION_KEY",
+          "value": "by9%Y@#*!Wf3Svb*3qb^KZvsk&zZBS1u%hvhU6RDz0tYts4Rj%&^E4*d0iJpb2WUdjXGYGr&Vm^9O6he1Wik%k%mGB3iI^6u"
+        },
+        {
+          "name": "JWT_SECRET",
+          "value": "x@KqLFzR6xYs$IqobyMaA^DSglh@%lQSCvZ3fcwQl@7OqzF7azPxx@LlHgVh1d&auLSW6DXwNXS5%GAoRgB^Q7kVcC@L%ht!"
+        },
+        {
+          "name": "FRONTEND_URL",
+          "value": "http://awslocal:3000"
+        },
+        {
+          "name": "TWITTER_API_KEY",
+          "value": "Qy3CmazTlUv59peugMvEFlU4Q"
+        },
+        {
+          "name": "TWITTER_API_SECRET",
+          "value": "wZ3CpFpdZcOH8NppDqw0Hiu01V65oHSNLeZRTh67c4tEkUxSwt"
+        },
+        {
+          "name": "TWITTER_ACCESS_TOKEN",
+          "value": "882039189377695744-p7wbQB9EEyznU2ubJtcbVFg0pSYBq22"
+        },
+        {
+          "name": "TWITTER_ACCESS_SECRET",
+          "value": "q5lLX3bg3ztfcxKSSW0ZnJYCXpPbkdEcsArXnGAZv09Ld"
+        },
+        {
+          "name": "TWITTER_BEARER_TOKEN",
+          "value": "AAAAAAAAAAAAAAAAAAAAAPLIqgEAAAAAfLEtLdheX9UDbSog24lgFssjQJ8%3DbB6TxA0sLbdNjpLPq0f24niW0zwa0IM5SEqtNfHM18e1cj5cmX"
+        },
+        {
+          "name": "TIMER_INITIAL_MINUTES",
+          "value": "10080"
+        },
+        {
+          "name": "MESSAGE_ENABLE",
+          "value": "true"
+        },
+        {
+          "name": "NEXT_PUBLIC_MESSAGE_ENABLE",
+          "value": "true"
+        },
+        {
+          "name": "MESSAGE_YELLOW_MINUTES",
+          "value": "120"
+        },
+        {
+          "name": "MESSAGE_RED_MINUTES",
+          "value": "60"
+        },
+        {
+          "name": "LAG_TIME_MINUTES",
+          "value": "10"
+        },
+        {
+          "name": "WEBSOCKET_PORT",
+          "value": "3001"
+        },
+        {
+          "name": "MESSAGE_WEBHOOK_SECRET",
+          "value": "akkpDG5mA*OfZ!rBPTcY*Z3cMsi&TxsNoCzozuFA3ljtFF!Gx#aspkeol1%5Ek6B2qNYPM$qcITdBJiJqWebWaJ##k*7DHmS"
+        },
+        {
+          "name": "NEXT_PUBLIC_WEBHOOK_INTERVAL_SECONDS",
+            "value": "45"
+        },
+        {
+          "name": "KPI_LOW_MINUTES",
+          "value": "60"
+        },
+        {
+          "name": "KPI_AVERAGE_MINUTES",
+          "value": "480"
+        },
+        {
+          "name": "KPI_HIGH_MINUTES",
+          "value": "1440"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/rdcircuitry",  
+          "awslogs-region": "us-west-2",
+          "awslogs-stream-prefix": "backend"
+        }
+      }
+    }
+  ],
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "1024",
+  "memory": "2048"
+}

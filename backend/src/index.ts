@@ -29,16 +29,59 @@ const app = express();
 const server = http.createServer(app);
 const websocketHttpServer = http.createServer(); // Create a dedicated server for WebSockets
 
+// Define allowed origins from environment variables and defaults
+const getAllowedOrigins = () => {
+  // Split comma-separated domains from environment variable, if provided
+  const envDomains = SERVER_CONFIG.ALLOWED_DOMAINS ? SERVER_CONFIG.ALLOWED_DOMAINS.split(',') : [];
+  
+  // Core domains always included
+  const domains = [
+    SERVER_CONFIG.FRONTEND_URL,
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'https://localhost:3000',
+    'https://localhost:3001'
+  ];
+  
+  // Production domains
+  const productionDomain = SERVER_CONFIG.PRODUCTION_DOMAIN;
+  const productionDomains = [
+    `http://${productionDomain}`,
+    `https://${productionDomain}`,
+    `http://www.${productionDomain}`,
+    `https://www.${productionDomain}`
+  ];
+  
+  // Add server IP if provided
+  if (SERVER_CONFIG.SERVER_IP) {
+    const serverIP = SERVER_CONFIG.SERVER_IP;
+    domains.push(
+      `http://${serverIP}`,
+      `https://${serverIP}`,
+      `http://${serverIP}:3000`,
+      `https://${serverIP}:3000`,
+      `http://${serverIP}:3001`,
+      `https://${serverIP}:3001`,
+      `http://${serverIP}:4000`,
+      `https://${serverIP}:4000`
+    );
+  }
+  
+  // Combine all domains
+  return [...domains, ...productionDomains, ...envDomains];
+};
+
+// Get the complete list of allowed origins
+const allowedOrigins = getAllowedOrigins();
+
+// Log allowed origins in development
+if (SERVER_CONFIG.NODE_ENV === 'development') {
+  console.log('🔐 Allowed CORS origins:', allowedOrigins);
+}
+
 // Middleware
 app.use(cors({
-  origin: [SERVER_CONFIG.FRONTEND_URL, 
-    'http://localhost:3000', 
-    'http://localhost:3001',
-    'https://*.replit.app',
-    'https://*.repl.co',
-    'http://34.83.203.60',
-    'https://34.83.203.60'
-  ],
+  origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -60,7 +103,7 @@ app.get('/api/health', (_req: Request, res: Response) => {
 // WebSocket server
 const io = new Server(websocketHttpServer, { // Attach Socket.IO to the dedicated WebSocket server
   cors: {
-    origin: [SERVER_CONFIG.FRONTEND_URL, 'http://localhost:3000', 'http://localhost:3001'],
+    origin: allowedOrigins, // Reuse the same origins list
     methods: ['GET', 'POST'],
     credentials: true
   }

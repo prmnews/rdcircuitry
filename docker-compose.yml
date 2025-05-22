@@ -3,9 +3,7 @@ name: rdcircuitry
 services:
   # Frontend service
   frontend:
-    build:
-      context: .
-      dockerfile: ./frontend.Dockerfile
+    image: kmxiaaw/rdcircuitry:frontend-v1.3.0
     ports:
       - "3000:3000"
     env_file:
@@ -18,14 +16,18 @@ services:
 
   # Backend ETL service
   backend:
-    build:
-      context: .
-      dockerfile: ./backend.Dockerfile
+    image: kmxiaaw/rdcircuitry:backend-v1.3.0
     ports:
       - "4000:4000"
       - "3001:3001"
     env_file:
       - ./backend/.env
+    environment:
+      # CORS Configuration
+      - SERVER_IP=137.184.14.201
+      - PRODUCTION_DOMAIN=rdcircuitry.com
+      - PRODUCTION_URL=https://rdcircuitry.com
+      # Override with environment variables from .env file if they exist
     volumes:
       - ./logs:/app/logs
       - ./backend/global-bundle.pem:/app/backend/global-bundle.pem:ro
@@ -36,4 +38,4 @@ services:
 
 networks:
   app-network:
-    driver: bridge 
+    driver: bridge

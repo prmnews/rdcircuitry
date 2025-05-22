@@ -9,6 +9,10 @@ export const SERVER_CONFIG = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:3000',
   WEBSOCKET_PORT: process.env.WEBSOCKET_PORT || '3001',
+  SERVER_IP: process.env.SERVER_IP,
+  ALLOWED_DOMAINS: process.env.ALLOWED_DOMAINS,
+  PRODUCTION_DOMAIN: process.env.PRODUCTION_DOMAIN || 'rdcircuitry.com',
+  PRODUCTION_URL: process.env.PRODUCTION_URL || 'https://rdcircuitry.com',
 };
 
 // Database Config

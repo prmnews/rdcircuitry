@@ -61,7 +61,7 @@ export const useWebSocket = ({
 
   useEffect(() => {
     if (!socketRef.current) {
-      const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000', {
+      const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001', {
         reconnection: true,
         reconnectionAttempts: 10,
         reconnectionDelay: 1000, // Start with 1s delay

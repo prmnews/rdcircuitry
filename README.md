@@ -96,5 +96,44 @@ See [backend/README.md](./backend/README.md) for backend environment setup.
 
 ### Frontend
 
-See [frontend/README.md](./frontend/README.md) for frontend environment setup. 
+See [frontend/README.md](./frontend/README.md) for frontend environment setup.
 
+## Environment Variables
+
+The application requires the following environment variables:
+
+### Server Configuration
+- `PORT`: API server port (default: 4000)
+- `NODE_ENV`: Environment (development/production)
+- `FRONTEND_URL`: URL for the frontend application
+- `WEBSOCKET_PORT`: Port for WebSocket server (default: 3001)
+- `SERVER_IP`: Server IP address (for CORS configuration)
+- `PRODUCTION_DOMAIN`: Production domain name (default: rdcircuitry.com)
+- `PRODUCTION_URL`: Full production URL (default: https://rdcircuitry.com)
+- `ALLOWED_DOMAINS`: Comma-separated list of additional allowed domains for CORS
+
+### Database Configuration
+- `MONGODB_URI`: MongoDB connection string
+- `MONGODB_DB`: MongoDB database name
+
+### Security Configuration
+- `JWT_SECRET`: Secret for JWT token generation
+- `ENCRYPTION_KEY`: 32-character key for encryption
+- `MESSAGE_WEBHOOK_SECRET`: Secret for webhook authentication
+
+### Timer Configuration
+- `TIMER_INITIAL_MINUTES`: Initial timer duration in minutes
+- `MESSAGE_ENABLE`: Enable/disable message functionality
+- `MESSAGE_YELLOW_MINUTES`: Minutes threshold for yellow warning
+- `MESSAGE_RED_MINUTES`: Minutes threshold for red warning
+- `LAG_TIME_MINUTES`: Minutes to add for lag compensation
+- `MESSAGE_CHECK_INTERVAL_MS`: Interval for checking message timers (milliseconds)
+
+### Twitter/X API Configuration
+- `TWITTER_API_KEY`: Twitter/X API key
+- `TWITTER_API_SECRET`: Twitter/X API secret
+- `TWITTER_ACCESS_TOKEN`: Twitter/X access token
+- `TWITTER_ACCESS_SECRET`: Twitter/X access token secret
+- `TWITTER_BEARER_TOKEN`: Twitter/X bearer token
+
+ 

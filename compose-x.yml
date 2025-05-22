@@ -1,0 +1,177 @@
+name: rdcircuitry
+version: "3.8"
+
+x-cluster:
+  name: rdcircuitry-cluster
+  settings:
+    containerInsights: true
+
+x-ssm_parameter:
+  - name: /rdcircuitry/nextauth/secret
+    type: SecureString
+    value: "#LGC4ad!$2u@u&Qp&z^tABYmOX!r5US8bK&MCpNA8D5alTRfHw6ek2NlsePJ*U5LeIsd5JVDBhUkBk6WQx!@laazm1YRWn1v"
+  - name: /rdcircuitry/encryption/key
+    type: SecureString
+    value: "by9%Y@#*!Wf3Svb*3qb^KZvsk&zZBS1u%hvhU6RDz0tYts4Rj%&^E4*d0iJpb2WUdjXGYGr&Vm^9O6he1Wik%k%mGB3iI^6u"
+  - name: /rdcircuitry/jwt/secret
+    type: SecureString
+    value: "x@KqLFzR6xYs$IqobyMaA^DSglh@%lQSCvZ3fcwQl@7OqzF7azPxx@LlHgVh1d&auLSW6DXwNXS5%GAoRgB^Q7kVcC@L%ht!"
+  - name: /rdcircuitry/mongodb/uri
+    type: SecureString
+    value: "mongodb+srv://kmxiaaw7gxy3jedt:PNZhs5UbiV6S06LI@rdi-cluster.gmmeuph.mongodb.net/"
+  - name: /rdcircuitry/twitter/api_key
+    type: SecureString
+    value: "Qy3CmazTlUv59peugMvEFlU4Q"
+  - name: /rdcircuitry/twitter/api_secret
+    type: SecureString
+    value: "wZ3CpFpdZcOH8NppDqw0Hiu01V65oHSNLeZRTh67c4tEkUxSwt"
+  - name: /rdcircuitry/twitter/access_token
+    type: SecureString
+    value: "882039189377695744-p7wbQB9EEyznU2ubJtcbVFg0pSYBq22"
+  - name: /rdcircuitry/twitter/access_secret
+    type: SecureString
+    value: "q5lLX3bg3ztfcxKSSW0ZnJYCXpPbkdEcsArXnGAZv09Ld"
+  - name: /rdcircuitry/twitter/bearer_token
+    type: SecureString
+    value: "AAAAAAAAAAAAAAAAAAAAAPLIqgEAAAAAfLEtLdheX9UDbSog24lgFssjQJ8%3DbB6TxA0sLbdNjpLPq0f24niW0zwa0IM5SEqtNfHM18e1cj5cmX"
+  - name: /rdcircuitry/webhook/secret
+    type: SecureString
+    value: "akkpDG5mA*OfZ!rBPTcY*Z3cMsi&TxsNoCzozuFA3ljtFF!Gx#aspkeol1%5Ek6B2qNYPM$qcITdBJiJqWebWaJ##k*7DHmS"
+
+services:
+  frontend:
+    extends:
+      file: docker-compose.yml
+      service: frontend
+    image: 026090556714.dkr.ecr.us-west-2.amazonaws.com/rdcircuitry-frontend:latest
+    x-ecs:
+      cpu: 512
+      memory: 1024
+    x-logging:
+      driver: awslogs
+      options:
+        awslogs-group: /ecs/rdcircuitry
+        awslogs-region: us-west-2
+        awslogs-stream-prefix: frontend
+    environment:
+      - NEXT_PUBLIC_API_URL=https://awslocal:4000/api
+      - NEXT_PUBLIC_SOCKET_URL=http://awslocal:3001
+      - NEXTAUTH_URL=http://awslocal:3000
+      - NEXTAUTH_SECRET=${/rdcircuitry/nextauth/secret}
+      - NEXT_PUBLIC_MESSAGE_ENABLE=true
+      - NEXT_PUBLIC_WEBHOOK_INTERVAL_SECONDS=45
+
+  backend:
+    extends:
+      file: docker-compose.yml
+      service: backend
+    image: 026090556714.dkr.ecr.us-west-2.amazonaws.com/rdcircuitry-backend:latest
+    x-ecs:
+      cpu: 512
+      memory: 1024
+    x-logging:
+      driver: awslogs
+      options:
+        awslogs-group: /ecs/rdcircuitry
+        awslogs-region: us-west-2
+        awslogs-stream-prefix: backend
+    environment:
+      - PORT=4000
+      - MONGODB_URI=${/rdcircuitry/mongodb/uri}
+      - MONGODB_DB=rdcircuitry
+      - ENCRYPTION_KEY=${/rdcircuitry/encryption/key}
+      - JWT_SECRET=${/rdcircuitry/jwt/secret}
+      - FRONTEND_URL=http://awslocal:3000
+      - TWITTER_API_KEY=${/rdcircuitry/twitter/api_key}
+      - TWITTER_API_SECRET=${/rdcircuitry/twitter/api_secret}
+      - TWITTER_ACCESS_TOKEN=${/rdcircuitry/twitter/access_token}
+      - TWITTER_ACCESS_SECRET=${/rdcircuitry/twitter/access_secret}
+      - TWITTER_BEARER_TOKEN=${/rdcircuitry/twitter/bearer_token}
+      - TIMER_INITIAL_MINUTES=10080
+      - MESSAGE_ENABLE=true
+      - MESSAGE_YELLOW_MINUTES=120
+      - MESSAGE_RED_MINUTES=60
+      - LAG_TIME_MINUTES=10
+      - WEBSOCKET_PORT=3001
+      - MESSAGE_WEBHOOK_SECRET=${/rdcircuitry/webhook/secret}
+      - KPI_LOW_MINUTES=60
+      - KPI_AVERAGE_MINUTES=480
+      - KPI_HIGH_MINUTES=1440
+
+x-vpc:
+  name: rdcircuitry-vpc
+  cidr: 10.0.0.0/16
+  subnets:
+    - name: public-1
+      cidr: 10.0.1.0/24
+      az: us-west-2a
+      public: true
+    - name: public-2
+      cidr: 10.0.2.0/24
+      az: us-west-2b
+      public: true
+
+x-elbv2:
+  name: rdcircuitry-alb
+  scheme: internet-facing
+  TargetGroups:
+    frontend-tg:
+      Port: 3000
+      Protocol: HTTP
+      HealthCheck:
+        HealthCheckPath: "/"
+        HealthCheckIntervalSeconds: 30
+        HealthyThresholdCount: 2
+      Services:
+        - Name: frontend
+          Port: 3000
+    backend-api-tg:
+      Port: 4000
+      Protocol: HTTP
+      HealthCheck:
+        HealthCheckPath: "/api/health"
+        HealthCheckIntervalSeconds: 30
+        HealthyThresholdCount: 2
+      Services:
+        - Name: backend
+          Port: 4000
+    backend-ws-tg:
+      Port: 3001
+      Protocol: HTTP
+      HealthCheck:
+        HealthCheckPath: "/ws/health"
+        HealthCheckIntervalSeconds: 30
+        HealthyThresholdCount: 2
+      Services:
+        - Name: backend
+          Port: 3001
+  Listeners:
+    - Port: 80
+      Protocol: HTTP
+      DefaultActions:
+        - Type: forward
+          TargetGroupName: frontend-tg
+    - Port: 4000
+      Protocol: HTTP
+      DefaultActions:
+        - Type: forward
+          TargetGroupName: backend-api-tg
+    - Port: 3001
+      Protocol: HTTP
+      DefaultActions:
+        - Type: forward
+          TargetGroupName: backend-ws-tg
+
+x-iam:
+  roles:
+    - name: ecsTaskExecutionRole
+      policies:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+        - name: SSMParameterAccess
+          statements:
+            - Effect: Allow
+              Action:
+                - ssm:GetParameter
+                - ssm:GetParameters
+              Resource:
+                - arn:aws:ssm:us-west-2:026090556714:parameter/rdcircuitry/*

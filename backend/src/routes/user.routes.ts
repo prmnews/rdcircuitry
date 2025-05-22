@@ -2,35 +2,41 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { authenticateToken } from '../middleware/auth';
 
+// Add interfaces for User and Event
+interface UserDocument {
+  _id: mongoose.Types.ObjectId;
+  userName: string;
+  role: string;
+  location?: any;
+}
+
+interface EventDocument {
+  details: string | any;
+  userName: string;
+  eventType: string;
+  trueDateTime: Date;
+}
+
 const router = express.Router();
 
 /**
  * @route GET /api/users/kpi-stats
  * @desc Get KPI statistics for user timer resets
- * @access Private (admin)
+ * @access Private (any authenticated user)
  */
 // @ts-ignore - Express typings issue
 router.get('/kpi-stats', authenticateToken, async (req, res) => {
   try {
-    // Check admin role
-    if (req.user?.role !== 'admin') {
-      res.status(403).json({ 
-        success: false, 
-        message: 'Admin privileges required' 
-      });
-      return;
-    }
-    
     // Get models
-    const User = mongoose.model('User');
-    const Event = mongoose.model('Event');
+    const User = mongoose.model<UserDocument>('User');
+    const Event = mongoose.model<EventDocument>('Event');
     
     // Get all users
     const users = await User.find({}, 'userName role location');
     
     // Calculate KPI stats for each user
     const userStats = await Promise.all(
-      users.map(async (user) => {
+      users.map(async (user: UserDocument) => {
         // Get timer reset events for this user
         const now = new Date();
         const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
@@ -58,7 +64,7 @@ router.get('/kpi-stats', authenticateToken, async (req, res) => {
         let maxRemainder = 0;
         let validRemainderCount = 0;
         
-        timerResets.forEach(event => {
+        timerResets.forEach((event: EventDocument) => {
           let remainder = 0;
           
           // Extract remainder from event details

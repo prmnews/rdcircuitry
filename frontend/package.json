@@ -31,9 +31,10 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/mongoose": "^5.11.97",
-    "@types/node": "^20.17.30",
-    "@types/react": "^19.1.0",
-    "@types/react-dom": "^19",
+    "@types/node": "^20.17.50",
+    "@types/react": "^19.1.5",
+    "@types/react-dom": "^19.1.5",
+    "@types/socket.io-client": "^3.0.0",
     "eslint-config-next": "15.2.4",
     "tailwindcss": "^4",
     "typescript": "^5"

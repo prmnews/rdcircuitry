@@ -11,15 +11,15 @@ rm -rf frontend/node_modules
 # echo "🚀 Setting Docker Compose optimizations..."
 # export COMPOSE_BAKE=true
 
-echo "🔨 Building Docker containers with version 1.3.1..."
-docker build -t kmxiaaw/rdcircuitry:backend-v1.3.1 -f backend.Dockerfile .
-docker build -t kmxiaaw/rdcircuitry:frontend-v1.3.1 -f frontend.Dockerfile .
+echo "🔨 Building Docker containers with version 1.4.2..."
+docker build -t kmxiaaw/rdcircuitry:backend-v1.4.2 -f backend.Dockerfile .
+docker build -t kmxiaaw/rdcircuitry:frontend-v1.4.2 -f frontend.Dockerfile .
 
 echo "✅ Build complete!"
 echo ""
 echo "To push the images to Docker Hub, run:"
-echo "docker push kmxiaaw/rdcircuitry:backend-v1.3.1"
-echo "docker push kmxiaaw/rdcircuitry:frontend-v1.3.1"
+echo "docker push kmxiaaw/rdcircuitry:backend-v1.4.2"
+echo "docker push kmxiaaw/rdcircuitry:frontend-v1.4.2"
 echo ""
 echo "To start the containers, run:"
 echo "docker-compose up -d"

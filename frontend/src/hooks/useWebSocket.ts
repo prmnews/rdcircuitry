@@ -61,7 +61,7 @@ export const useWebSocket = ({
 
   useEffect(() => {
     if (!socketRef.current) {
-      const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001', {
+      const socket = io(process.env.NEXT_PUBLIC_WEBSOCKET_URL || 'http://localhost:3001', {
         reconnection: true,
         reconnectionAttempts: 10,
         reconnectionDelay: 1000, // Start with 1s delay
@@ -75,33 +75,33 @@ export const useWebSocket = ({
 
       socket.on('connect', () => {
         console.log('WebSocket connected');
-        setState(prev => ({ ...prev, connected: true }));
+        setState((prev: WebSocketState) => ({ ...prev, connected: true }));
         if (callbacksRef.current.onConnect) {
           callbacksRef.current.onConnect();
         }
       });
 
-      socket.on('disconnect', (reason) => {
+      socket.on('disconnect', (reason: string) => {
         console.log(`WebSocket disconnected: ${reason}`);
-        setState(prev => ({ ...prev, connected: false }));
+        setState((prev: WebSocketState) => ({ ...prev, connected: false }));
         if (callbacksRef.current.onDisconnect) {
           callbacksRef.current.onDisconnect();
         }
       });
 
-      socket.on('connect_error', (error) => {
+      socket.on('connect_error', (error: Error) => {
         console.error('WebSocket connection error:', error);
       });
       
-      socket.on('reconnect', (attempt) => {
+      socket.on('reconnect', (attempt: number) => {
         console.log(`WebSocket reconnected after ${attempt} attempts`);
       });
       
-      socket.on('reconnect_attempt', (attempt) => {
+      socket.on('reconnect_attempt', (attempt: number) => {
         console.log(`WebSocket reconnection attempt ${attempt}`);
       });
       
-      socket.on('reconnect_error', (error) => {
+      socket.on('reconnect_error', (error: Error) => {
         console.error('WebSocket reconnection error:', error);
       });
       
@@ -111,7 +111,7 @@ export const useWebSocket = ({
 
       // Register event listeners
       socket.on('timer-reset', (data: TimerResetEvent) => {
-        setState(prev => ({
+        setState((prev: WebSocketState) => ({
           ...prev,
           lastEvent: {
             type: 'timer-reset',
@@ -126,7 +126,7 @@ export const useWebSocket = ({
       });
       
       socket.on('timer-expired', (data: TimerExpiredEvent) => {
-        setState(prev => ({
+        setState((prev: WebSocketState) => ({
           ...prev,
           lastEvent: {
             type: 'timer-expired',
@@ -141,7 +141,7 @@ export const useWebSocket = ({
       });
       
       socket.on('message-timer-started', (data: MessageTimerStartedEvent) => {
-        setState(prev => ({
+        setState((prev: WebSocketState) => ({
           ...prev,
           lastEvent: {
             type: 'message-timer-started',
@@ -156,7 +156,7 @@ export const useWebSocket = ({
       });
       
       socket.on('message-timer-expired', (data: MessageTimerExpiredEvent) => {
-        setState(prev => ({
+        setState((prev: WebSocketState) => ({
           ...prev,
           lastEvent: {
             type: 'message-timer-expired',

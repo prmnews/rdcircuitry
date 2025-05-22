@@ -114,6 +114,12 @@ const socketManager = new SocketManager(io);
 
 // Declare global IO instance
 declare global {
+  namespace NodeJS {
+    interface Global {
+      socketIo: Server;
+      socketManager: SocketManager;
+    }
+  }
   var socketIo: Server;
   var socketManager: SocketManager;
 }

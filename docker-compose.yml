@@ -3,7 +3,7 @@ name: rdcircuitry
 services:
   # Frontend service
   frontend:
-    image: kmxiaaw/rdcircuitry:frontend-v1.3.0
+    image: kmxiaaw/rdcircuitry:frontend-v1.4.2
     ports:
       - "3000:3000"
     env_file:
@@ -16,7 +16,7 @@ services:
 
   # Backend ETL service
   backend:
-    image: kmxiaaw/rdcircuitry:backend-v1.3.0
+    image: kmxiaaw/rdcircuitry:backend-v1.4.2
     ports:
       - "4000:4000"
       - "3001:3001"
